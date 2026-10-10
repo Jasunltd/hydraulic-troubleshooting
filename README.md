@@ -1,6 +1,6 @@
 # Hydraulic Troubleshooting — Interpretable Signal Discovery
 
-**Publication candidate — not publicly released. Original authored software is staged under MIT pending rights review.**
+**Independent open-source research software — MIT for original code. External research datasets retain their upstream licenses.**
 
 Can stable-state sensor measurements narrow hydraulic component-fault hypotheses without inventing a field diagnosis?
 
@@ -55,13 +55,12 @@ test seams. Review provenance before republishing any third-party material.
 
 ## Publication and licensing
 
-The original authored software code and associated original software
-documentation are staged under the [MIT License](LICENSE), with publication
-and contributor/ownership authorization still pending. See
-[license scope](LICENSE-SCOPE.md). MIT does **not** relicense third-party
-datasets, source measurements, figures, video/media, physical machine output
-or separately owned research material. The source register and originating
-dataset terms require independent review.
+The original software code and related original software documentation
+are published under the [MIT License](LICENSE); see
+[license scope](LICENSE-SCOPE.md). Dataset-derived measurements and figures
+retain external source licensing, credit and modification notices.
+The npm package remains `private: true`, which blocks registry
+publishing without restricting this public source repository.
 
 No affiliation with source-data publishers, machinery vendors, research
 institutions, or relevant prospective employers is implied.

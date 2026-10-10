@@ -1,8 +1,8 @@
 # Attribution and rights register
 
-- **Software code:** Project-authored Python/TypeScript work staged under
-  [MIT](LICENSE), subject to confirmation of rightsholder authority.
-  [License scope](LICENSE-SCOPE.md).
+- **Software code:** Project-authored Python/TypeScript work under
+  [MIT](LICENSE). Original-code and dataset rights are distinguished in
+  [LICENSE-SCOPE.md](LICENSE-SCOPE.md).
 - **Dataset:** UCI Machine Learning Repository hydraulic systems
   dataset 447, Helwig/Pignanelli/Schütze, CC BY 4.0; exact DOI, upstream
   SHA-256, derived-file manifest and method changes are explained in

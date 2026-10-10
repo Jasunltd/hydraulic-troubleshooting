@@ -76,6 +76,6 @@ employer rights, or authority for physical equipment action. This study
 does not establish field diagnostic accuracy, realized maintenance benefit,
 independent industrial sensor validation or safety certification.
 
-The source code copyright-holder identity, external data attribution
-and any third-party derived-material conditions must be signed off
-before pushing this candidate publicly.
+The root software MIT license and the original UCI dataset's CC BY 4.0
+terms remain distinct. Any reuse of derivative measurements must retain the
+UCI authorship, DOI, source, original license and changes notice.
