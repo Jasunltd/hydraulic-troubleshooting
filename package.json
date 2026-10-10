@@ -2,6 +2,7 @@
   "name": "hydraulic-troubleshooting",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "description": "Interpretable hydraulic condition-monitoring with explicit stability and diagnostic uncertainty",
   "engines": {

@@ -10,4 +10,4 @@
 
 The large original source ZIP and raw sensor streams are **not** included in this candidate. The project contains smaller derived analysis outputs and receipts. The original dataset's authors, source, and terms must be preserved where those derivatives are redistributed. The generated observations do not become field diagnostic evidence merely through attribution.
 
-**Authored code is currently unlicensed in this unpublished candidate.** CC BY 4.0 applies to the referenced dataset, not automatically to all code, prose, figures or generated research material here. A separate code license and any necessary attribution for derived tables remain subject to review.
+**Original authored code is staged under MIT, but is not publicly released.** CC BY 4.0 applies to the referenced dataset, not automatically to software code or all research prose, figures or generated material. Preserve source attribution and review rights for derived tables before publication. See [license scope](LICENSE-SCOPE.md).
