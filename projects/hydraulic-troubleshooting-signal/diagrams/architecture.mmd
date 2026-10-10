@@ -1,0 +1,17 @@
+flowchart LR
+  A[Public UCI archive] --> B[Source hash + data audit]
+  B --> C{Source stable flag}
+  C -->|non-static| D[Retain / do not use for stable-state diagnosis]
+  C -->|stable| E[Cycle feature extraction]
+  E --> F[Matched factorial analysis]
+  F --> G[Discovery split]
+  F --> H[Verification split]
+  G --> I[Signal candidates]
+  H --> J[Repeatability check]
+  I --> J
+  J --> K{Specific enough?}
+  K -->|yes: cooler / valve| L[Candidate targeted branch]
+  K -->|no: pump / accumulator| M[Require multi-signal / physical confirmation]
+  L --> N[Proposal-only troubleshooting workflow]
+  M --> N
+  N --> O[Independent validation experiment — planned]

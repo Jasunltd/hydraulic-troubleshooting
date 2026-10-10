@@ -1,0 +1,650 @@
+{
+  "schemaVersion": 2,
+  "projectSlug": "hydraulic-troubleshooting-signal",
+  "evidence": [
+    {
+      "id": "src-uci",
+      "kind": "source",
+      "authority": "public-primary",
+      "value": "https://archive.ics.uci.edu/dataset/447/condition+monitoring+of+hydraulic+systems",
+      "note": "Primary dataset provenance, sensor/cycle description, component conditions, stable flag, and license."
+    },
+    {
+      "id": "src-hydraulic-paper",
+      "kind": "source",
+      "authority": "public-primary",
+      "value": "https://doi.org/10.1109/I2MTC.2015.7151267",
+      "note": "Measurement setup and prior multivariate condition-monitoring context cited by the dataset."
+    },
+    {
+      "id": "src-nist-control",
+      "kind": "source",
+      "authority": "public-primary",
+      "value": "https://www.itl.nist.gov/div898/handbook/pmc/section3/pmc31.htm",
+      "note": "Control-chart method reference; not evidence that this dataset is an adequate production baseline."
+    },
+    {
+      "id": "src-nist-ocap",
+      "kind": "source",
+      "authority": "public-primary",
+      "value": "https://itl.nist.gov/div898/handbook/pmc/section1/pmc14.htm",
+      "note": "Assignable-cause investigation/action-plan framing."
+    },
+    {
+      "id": "ev-public-dataset",
+      "kind": "dataset",
+      "authority": "public-primary",
+      "value": "data/raw/hydraulic-systems.zip#sha256:24128aad2ee45eea7e6b63ebbd9992cdf25d0483a2cebefbfc13bc69079af1f2",
+      "note": "Git-ignored local copy of the public UCI source archive."
+    },
+    {
+      "id": "ev-data-audit",
+      "kind": "artifact",
+      "authority": "verification",
+      "value": "evidence/data-quality-audit.json",
+      "note": "Deterministic profile/sensor alignment and stable-factorial coverage audit."
+    },
+    {
+      "id": "ev-signal-ranking",
+      "kind": "statistical-result",
+      "authority": "verification",
+      "value": "evidence/component-signal-ranking.csv",
+      "note": "Matched discovery/verification component-signal ranking."
+    },
+    {
+      "id": "ev-verification-summary",
+      "kind": "statistical-result",
+      "authority": "verification",
+      "value": "evidence/verification-summary.csv",
+      "note": "Top holdout signal evidence by component."
+    },
+    {
+      "id": "ev-analysis-summary",
+      "kind": "artifact",
+      "authority": "verification",
+      "value": "evidence/analysis-summary.json",
+      "note": "Machine-readable analysis scope, criteria, findings, and claim boundaries."
+    },
+    {
+      "id": "ev-healthy-reference",
+      "kind": "statistical-result",
+      "authority": "verification",
+      "value": "evidence/healthy-reference-summary.csv",
+      "note": "Descriptive summary of 10 simultaneously stable/fully healthy cycles; not formal control limits."
+    },
+    {
+      "id": "ev-analysis-command",
+      "kind": "command",
+      "authority": "verification",
+      "value": "python3 projects/hydraulic-troubleshooting-signal/analysis/analyze.py",
+      "note": "Deterministic standard-library reproduction command."
+    },
+    {
+      "id": "ev-analysis-receipt",
+      "kind": "artifact",
+      "authority": "verification",
+      "value": "evidence/receipts/primary-analysis-receipt.json",
+      "note": "Source/output hashes and execution identities."
+    },
+    {
+      "id": "ev-pump-holdout-summary",
+      "kind": "statistical-result",
+      "authority": "verification",
+      "value": "evidence/pump-leak-rule-summary.json",
+      "note": "Development-selected physical-sensor pump-leak rule evaluated on complete held-out cooler/valve/accumulator condition groups within the same public experiment."
+    },
+    {
+      "id": "ev-pump-holdout-audit",
+      "kind": "artifact",
+      "authority": "verification",
+      "value": "evidence/pump-leak-measurement-audit.json",
+      "note": "Stable-cycle population, physical-sensor set, nuisance-group split, and measurement-system boundary for the secondary pump study."
+    },
+    {
+      "id": "ev-pump-holdout-receipt",
+      "kind": "artifact",
+      "authority": "verification",
+      "value": "evidence/receipts/pump-leak-rule-receipt.json",
+      "note": "Execution/output identity for the secondary pump nuisance-condition holdout."
+    },
+    {
+      "id": "ev-bounded-closure",
+      "kind": "test",
+      "authority": "verification",
+      "value": "evidence/receipts/bounded-signal-discovery-closure-v1.json",
+      "note": "Closure receipt for the bounded public-data signal-discovery scope; no field or actuation authority."
+    }
+  ],
+  "claims": [
+    {
+      "id": "CLM-SOURCE-STRUCTURE",
+      "kind": "reported-fact",
+      "confidence": "source-stated",
+      "text": "The public UCI hydraulic test-rig dataset contains 2,205 60-second cycles, multiple process sensors, four varied component-condition dimensions, and a cycle-wise stable flag.",
+      "evidenceIds": [
+        "src-uci"
+      ]
+    },
+    {
+      "id": "CLM-STABLE-FLAG",
+      "kind": "reported-fact",
+      "confidence": "source-stated",
+      "text": "The source stable flag distinguishes cycles reported as stable from cycles where static conditions might not yet have been reached.",
+      "evidenceIds": [
+        "src-uci"
+      ]
+    },
+    {
+      "id": "ASM-WINDOWS",
+      "kind": "assumption",
+      "confidence": "declared-assumption",
+      "text": "Twelve equal five-second windows are an interpretable time-localization choice for each 60-second cycle.",
+      "evidenceIds": []
+    },
+    {
+      "id": "CLM-DATA-AUDIT",
+      "kind": "derived",
+      "method": "deterministic source reconciliation",
+      "reproducible": true,
+      "text": "All 17 sensor files reconcile to 2,205 profile cycles with expected row widths; 1,449 cycles are stable, and those stable cycles cover all 144 component-state combinations with 10–19 repetitions each.",
+      "evidenceIds": [
+        "ev-public-dataset",
+        "ev-data-audit",
+        "ev-analysis-command"
+      ]
+    },
+    {
+      "id": "CLM-COOLER",
+      "kind": "derived",
+      "method": "matched factorial discovery/verification",
+      "reproducible": true,
+      "text": "Cooler degradation has highly repeatable, highly component-specific thermal/pressure signatures in the source-flagged stable public test-rig cycles.",
+      "evidenceIds": [
+        "ev-signal-ranking",
+        "ev-verification-summary",
+        "ev-analysis-receipt"
+      ]
+    },
+    {
+      "id": "CLM-VALVE",
+      "kind": "derived",
+      "method": "matched factorial discovery/verification with time-localized features",
+      "reproducible": true,
+      "text": "Valve degradation has highly repeatable, time-localized, component-specific pressure/flow signatures in the source-flagged stable public test-rig cycles.",
+      "evidenceIds": [
+        "ev-signal-ranking",
+        "ev-verification-summary",
+        "ev-analysis-receipt"
+      ]
+    },
+    {
+      "id": "CLM-PUMP",
+      "kind": "derived",
+      "method": "matched factorial discovery/verification and cross-component specificity",
+      "reproducible": true,
+      "text": "The broad matched-feature screen found repeatable pump-leakage signal changes but did not establish clean direct isolation from effect magnitude/specificity alone.",
+      "evidenceIds": [
+        "ev-signal-ranking",
+        "ev-verification-summary"
+      ]
+    },
+    {
+      "id": "CLM-PUMP-HOLDOUT",
+      "kind": "derived",
+      "method": "development-selected physical-sensor threshold with complete nuisance-condition group holdout",
+      "reproducible": true,
+      "text": "A secondary within-experiment study selected FS1 end-shift using 39 cooler/valve/accumulator development groups and, on 9 completely held-out nuisance-condition groups, flagged 0 of 90 healthy, 90 of 90 weak-leak, and 90 of 90 severe-leak stable cycles. This is within-experiment validation, not field diagnostic accuracy.",
+      "evidenceIds": [
+        "ev-pump-holdout-summary",
+        "ev-pump-holdout-audit",
+        "ev-pump-holdout-receipt"
+      ]
+    },
+    {
+      "id": "CLM-ACCUMULATOR",
+      "kind": "derived",
+      "method": "matched factorial discovery/verification and cross-component specificity",
+      "reproducible": true,
+      "text": "Accumulator degradation produces a repeatable early pressure signal, but material cross-sensitivity remains and several high-magnitude flow candidates fail direction-consistency gates.",
+      "evidenceIds": [
+        "ev-signal-ranking",
+        "ev-verification-summary"
+      ]
+    },
+    {
+      "id": "CLM-SPC-LIMIT",
+      "kind": "derived",
+      "method": "measurement-validity gate",
+      "reproducible": true,
+      "text": "A formal production SPC baseline is not established: only 10 cycles are simultaneously stable and fully healthy, and independent measurement-system adequacy is not established.",
+      "evidenceIds": [
+        "ev-healthy-reference",
+        "ev-data-audit",
+        "src-nist-control"
+      ]
+    },
+    {
+      "id": "CLM-BOUNDED-CLOSURE",
+      "kind": "derived",
+      "method": "deterministic analysis rerun plus seam/receipt verification",
+      "reproducible": true,
+      "text": "The public-data hydraulic signal-discovery scope is closed through Analyze: source integrity, stable-state partitioning, matched factorial repeatability, nuisance-group pump holdout, and code/output receipt binding are verified. External validation, Improve, operational benefit, and Control remain unopened.",
+      "evidenceIds": [
+        "ev-analysis-receipt",
+        "ev-pump-holdout-receipt",
+        "ev-bounded-closure"
+      ]
+    },
+    {
+      "id": "REC-STAGED-WORKFLOW",
+      "kind": "recommendation",
+      "authority": "proposal-only",
+      "text": "Independently test a staged deterministic workflow: settle-state gate; verified cooler/valve branches; a frozen pump screening branch treated as provisional until external validation; multi-signal or physical confirmation for accumulator/ambiguous cases; explicit escalation on conflict.",
+      "evidenceIds": [
+        "ev-signal-ranking",
+        "ev-verification-summary",
+        "ev-pump-holdout-summary"
+      ],
+      "basedOnClaimIds": [
+        "CLM-COOLER",
+        "CLM-VALVE",
+        "CLM-PUMP",
+        "CLM-PUMP-HOLDOUT",
+        "CLM-ACCUMULATOR",
+        "CLM-SPC-LIMIT"
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "id": "E1",
+      "family": "economic",
+      "name": "Median diagnostic candidate component families after staged screen",
+      "unit": "count",
+      "direction": "minimize",
+      "hardConstraint": false,
+      "sourceOrFormula": "future independent validation; no operational baseline yet"
+    },
+    {
+      "id": "E2",
+      "family": "economic",
+      "name": "Troubleshooting decision time",
+      "unit": "minutes",
+      "direction": "minimize",
+      "hardConstraint": false,
+      "sourceOrFormula": "future timed validation; not yet measured"
+    },
+    {
+      "id": "H1",
+      "family": "human",
+      "name": "Signals or checks reviewed before escalation",
+      "unit": "count",
+      "direction": "minimize",
+      "hardConstraint": false,
+      "sourceOrFormula": "future workflow observation; not yet measured"
+    },
+    {
+      "id": "H2",
+      "family": "human",
+      "name": "Forced diagnoses when evidence is inconclusive",
+      "unit": "count",
+      "direction": "target",
+      "hardConstraint": true,
+      "target": 0,
+      "sourceOrFormula": "future workflow audit; target is zero forced diagnoses"
+    },
+    {
+      "id": "S1",
+      "family": "ecological",
+      "name": "Unnecessary diagnostic intervention or test cycles",
+      "unit": "count",
+      "direction": "minimize",
+      "hardConstraint": false,
+      "sourceOrFormula": "future observed validation; no ecological benefit measured"
+    }
+  ],
+  "hardConstraints": [
+    {
+      "id": "HC-SAFETY",
+      "family": "safety",
+      "statement": "Research output must not directly actuate equipment, bypass safety interlocks, or authorize hazardous maintenance.",
+      "verification": "No control command path exists; future validation requires human authorization and site safety review."
+    },
+    {
+      "id": "HC-LEGAL",
+      "family": "legal",
+      "statement": "Use only public, licensed, synthetic, or independently observed evidence and retain required attribution.",
+      "verification": "Source register, UCI provenance, and clean-room review."
+    },
+    {
+      "id": "HC-QUALITY",
+      "family": "quality",
+      "statement": "Do not claim component isolation when evidence is cross-sensitive or when false isolation has not been measured.",
+      "verification": "Matched specificity, holdout repeatability, and future false-isolation audit."
+    },
+    {
+      "id": "HC-HUMAN",
+      "family": "human",
+      "statement": "The workflow must preserve an inconclusive/escalate state and may not infer blame from operator identity or behavior.",
+      "verification": "Workflow review and future human-factors validation."
+    },
+    {
+      "id": "HC-ECO",
+      "family": "ecological",
+      "statement": "Do not induce destructive production faults solely to produce portfolio evidence or claim resource benefit without observation.",
+      "verification": "Experiment-protocol review and benefits ledger."
+    },
+    {
+      "id": "HC-DATA",
+      "family": "data",
+      "statement": "No confidential employer data or reconstructed proprietary parameters, schemas, identities, system names, URLs, or artifacts.",
+      "verification": "Public-source provenance, archive hash, and repository review."
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "HYP-COOLER",
+      "statement": "Cooler degradation produces a repeatable component-specific thermal/cooling signature after other component states are held fixed.",
+      "status": "supported",
+      "falsification": "Reject if the verification split loses direction/effect repeatability or the leading signal is materially stronger for another component.",
+      "evidenceIds": [
+        "ev-signal-ranking",
+        "ev-verification-summary"
+      ]
+    },
+    {
+      "id": "HYP-VALVE",
+      "statement": "Valve lag produces a repeatable time-localized pressure/flow signature after other component states are held fixed.",
+      "status": "supported",
+      "falsification": "Reject if the verification split loses direction/effect repeatability or the signal is not component-specific.",
+      "evidenceIds": [
+        "ev-signal-ranking",
+        "ev-verification-summary"
+      ]
+    },
+    {
+      "id": "HYP-PUMP",
+      "statement": "Pump leakage produces repeatable signals that are sufficiently component-specific for direct isolation.",
+      "status": "inconclusive",
+      "falsification": "Support only if genuinely independent evidence preserves discrimination and direct-isolation performance while measurement-system and false-isolation gates pass.",
+      "evidenceIds": [
+        "ev-signal-ranking",
+        "ev-verification-summary",
+        "ev-pump-holdout-summary"
+      ]
+    },
+    {
+      "id": "HYP-PUMP-HOLDOUT",
+      "statement": "A development-selected FS1 end-shift rule discriminates pump-leak labels across held-out cooler, valve, and accumulator condition groups inside the UCI experiment.",
+      "status": "supported",
+      "falsification": "Reject if the frozen rule fails on the held-out nuisance-condition groups or if the split/feature/threshold was influenced by holdout outcomes.",
+      "evidenceIds": [
+        "ev-pump-holdout-summary",
+        "ev-pump-holdout-audit",
+        "ev-pump-holdout-receipt"
+      ]
+    },
+    {
+      "id": "HYP-ACCUMULATOR",
+      "statement": "Accumulator pressure reduction produces repeatable signals that are sufficiently component-specific for direct isolation.",
+      "status": "inconclusive",
+      "falsification": "Support only if independent evidence preserves repeatability and cross-sensitivity is reduced or explicitly resolved.",
+      "evidenceIds": [
+        "ev-signal-ranking",
+        "ev-verification-summary"
+      ]
+    },
+    {
+      "id": "HYP-STATE-GATE",
+      "statement": "Non-static process state must be gated before stable-state component interpretation.",
+      "status": "supported",
+      "falsification": "Reject only if an independent measurement design shows transient/static state has no material effect on the diagnostic evidence.",
+      "evidenceIds": [
+        "src-uci",
+        "ev-data-audit"
+      ]
+    },
+    {
+      "id": "HYP-STAGED-WORKFLOW",
+      "statement": "A stability-gated hierarchical deterministic rule can reduce diagnostic candidate count without forcing a false isolation.",
+      "status": "open",
+      "falsification": "Reject if independent validation does not narrow the candidate set, increases false isolation, or violates a hard constraint.",
+      "evidenceIds": [
+        "ev-signal-ranking",
+        "ev-verification-summary"
+      ]
+    }
+  ],
+  "records": [
+    {
+      "schema": "ci-research.record/v1",
+      "id": "REC-PROBLEM-FRAME",
+      "kind": "problem-frame",
+      "evidenceIds": [
+        "src-uci"
+      ],
+      "payload": {
+        "schema": "ci-research.problem-frame/v1",
+        "problemId": 13,
+        "question": "How can teams separate signal from noise and identify causal hypotheses faster across fragmented process evidence?",
+        "metricIds": [
+          "E1",
+          "E2",
+          "H1",
+          "H2",
+          "S1"
+        ],
+        "hardConstraintIds": [
+          "HC-DATA",
+          "HC-ECO",
+          "HC-HUMAN",
+          "HC-LEGAL",
+          "HC-QUALITY",
+          "HC-SAFETY"
+        ],
+        "lensCoverage": {
+          "economic": true,
+          "human": true,
+          "ecological": true
+        },
+        "authority": "none"
+      },
+      "digest": "sha256:64fe0ba9a562fb43ec2faa559be60585ae2d0076edca70e057584a3e4f689d6c"
+    },
+    {
+      "schema": "ci-research.record/v1",
+      "id": "REC-OPERATIONAL-BASELINE",
+      "kind": "baseline-assessment",
+      "evidenceIds": [],
+      "payload": {
+        "_tag": "InsufficientEvidence",
+        "metricId": "E1",
+        "reasons": [
+          "requires-at-least-5-baseline-measurements"
+        ],
+        "evidenceIds": []
+      },
+      "digest": "sha256:788feb789a6bda21ceca7495f70b1daabe32bd81eeb6921e54f9c50d2da173e1"
+    },
+    {
+      "schema": "ci-research.record/v1",
+      "id": "REC-SPC-VALIDITY",
+      "kind": "signal-assessment",
+      "evidenceIds": [
+        "ev-data-audit",
+        "ev-healthy-reference",
+        "src-nist-control"
+      ],
+      "payload": {
+        "_tag": "EvidenceInsufficient",
+        "methodId": "formal-production-spc-reference",
+        "reasons": [
+          "measurement-system-adequacy-unknown"
+        ],
+        "evidenceIds": [
+          "ev-data-audit",
+          "ev-healthy-reference",
+          "src-nist-control"
+        ]
+      },
+      "digest": "sha256:7275b50ec76efde3fd582b6b9d9716d9db06f5596d7a7010cd662a017457495b"
+    },
+    {
+      "schema": "ci-research.record/v1",
+      "id": "REC-DIAG-COOLER",
+      "kind": "diagnostic-assessment",
+      "evidenceIds": [
+        "ev-signal-ranking",
+        "ev-verification-summary"
+      ],
+      "payload": {
+        "_tag": "SupportedCandidate",
+        "hypothesisId": "HYP-COOLER",
+        "evidenceIds": [
+          "ev-signal-ranking",
+          "ev-verification-summary"
+        ],
+        "caveat": "candidate-cause-not-proven-causation"
+      },
+      "digest": "sha256:1b375043651be679ef49107988e2decaeee52d5ea4d1b6107b9d1a8d7f8d5684"
+    },
+    {
+      "schema": "ci-research.record/v1",
+      "id": "REC-DIAG-VALVE",
+      "kind": "diagnostic-assessment",
+      "evidenceIds": [
+        "ev-signal-ranking",
+        "ev-verification-summary"
+      ],
+      "payload": {
+        "_tag": "SupportedCandidate",
+        "hypothesisId": "HYP-VALVE",
+        "evidenceIds": [
+          "ev-signal-ranking",
+          "ev-verification-summary"
+        ],
+        "caveat": "candidate-cause-not-proven-causation"
+      },
+      "digest": "sha256:77d2cd4c8d04c604f927b9892b9a5ba917806b3614d9485e5689990f648f44b8"
+    },
+    {
+      "schema": "ci-research.record/v1",
+      "id": "REC-DIAG-PUMP",
+      "kind": "diagnostic-assessment",
+      "evidenceIds": [
+        "ev-signal-ranking",
+        "ev-verification-summary"
+      ],
+      "payload": {
+        "_tag": "Confounded",
+        "hypothesisIds": [
+          "HYP-PUMP"
+        ],
+        "confounders": [
+          "leading pump features are materially responsive to other component-condition changes"
+        ],
+        "evidenceIds": [
+          "ev-signal-ranking",
+          "ev-verification-summary"
+        ]
+      },
+      "digest": "sha256:dffd45ed4cc206034821df03baf587b26520a2dc7385bfb0ffe3d0bf2567f993"
+    },
+    {
+      "schema": "ci-research.record/v1",
+      "id": "REC-DIAG-PUMP-HOLDOUT",
+      "kind": "diagnostic-assessment",
+      "evidenceIds": [
+        "ev-pump-holdout-audit",
+        "ev-pump-holdout-receipt",
+        "ev-pump-holdout-summary"
+      ],
+      "payload": {
+        "_tag": "SupportedCandidate",
+        "hypothesisId": "HYP-PUMP-HOLDOUT",
+        "evidenceIds": [
+          "ev-pump-holdout-audit",
+          "ev-pump-holdout-receipt",
+          "ev-pump-holdout-summary"
+        ],
+        "caveat": "candidate-cause-not-proven-causation"
+      },
+      "digest": "sha256:81520d5656c717869d708efb384bcc50cfc723fcf781be02c9d86daaa73a535c"
+    },
+    {
+      "schema": "ci-research.record/v1",
+      "id": "REC-DIAG-ACCUMULATOR",
+      "kind": "diagnostic-assessment",
+      "evidenceIds": [
+        "ev-signal-ranking",
+        "ev-verification-summary"
+      ],
+      "payload": {
+        "_tag": "Confounded",
+        "hypothesisIds": [
+          "HYP-ACCUMULATOR"
+        ],
+        "confounders": [
+          "leading accumulator features are materially responsive to other component-condition changes"
+        ],
+        "evidenceIds": [
+          "ev-signal-ranking",
+          "ev-verification-summary"
+        ]
+      },
+      "digest": "sha256:da2f8338925f79e51ef7e3bc2159cf57bb3bef3a231b90e4b41d41204648b309"
+    },
+    {
+      "schema": "ci-research.record/v1",
+      "id": "REC-EXPERIMENT-PLAN",
+      "kind": "experiment-plan",
+      "evidenceIds": [
+        "ev-pump-holdout-summary",
+        "ev-signal-ranking",
+        "ev-verification-summary"
+      ],
+      "payload": {
+        "schema": "ci-research.experiment-plan/v1",
+        "id": "EXP-INDEPENDENT-STAGED-RCA",
+        "hypothesisId": "HYP-STAGED-WORKFLOW",
+        "intervention": "Apply a frozen settled-state gate, verified cooler/valve branches, a provisional frozen pump screening branch, and multi-signal or physical confirmation for accumulator/ambiguous cases to genuinely independent evidence.",
+        "primaryMetricId": "E1",
+        "criteria": [
+          {
+            "id": "C-CANDIDATES",
+            "metricId": "E1",
+            "operator": "<=",
+            "threshold": 2
+          },
+          {
+            "id": "C-NO-FORCED-DIAGNOSIS",
+            "metricId": "H2",
+            "operator": "==",
+            "threshold": 0
+          }
+        ],
+        "hardConstraintIds": [
+          "HC-DATA",
+          "HC-ECO",
+          "HC-HUMAN",
+          "HC-LEGAL",
+          "HC-QUALITY",
+          "HC-SAFETY"
+        ],
+        "requiredEvidenceKinds": [
+          "false-isolation-audit",
+          "human-review",
+          "independent-validation-population",
+          "measurement-system-check"
+        ],
+        "authority": "proposal-only"
+      },
+      "digest": "sha256:b1f2c7701809d67c2bd2ac9361c575e170cb96d9e3c25c4afb6ccac8c39f048c"
+    }
+  ],
+  "verificationReceiptFiles": [
+    "evidence/receipts/primary-analysis-receipt.json",
+    "evidence/receipts/pump-leak-rule-receipt.json",
+    "evidence/receipts/bounded-signal-discovery-closure-v1.json"
+  ]
+}

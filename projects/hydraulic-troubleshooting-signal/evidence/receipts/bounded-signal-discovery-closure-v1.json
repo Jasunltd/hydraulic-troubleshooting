@@ -1,0 +1,33 @@
+{
+  "schema": "hydraulic.bounded-signal-discovery-closure/v1",
+  "authority": "none",
+  "scope": "bounded public-data hydraulic signal discovery through Analyze",
+  "observedAt": "2026-10-05T19:30:00Z",
+  "claimBoundary": "No external validation, field diagnostic accuracy, equipment actuation authority, operational benefit, or sustainment is established.",
+  "analysisSeams": 2,
+  "verification": {
+    "pythonSeamTests": "4/4",
+    "nodeClosureTests": "4/4",
+    "primaryAnalysisRerun": "pass",
+    "secondaryPumpHoldoutRerun": "pass",
+    "fullProjectVerifier": "pass",
+    "registeredSources": 4
+  },
+  "frozenObservations": {
+    "cycles": 2205,
+    "stableCycles": 1449,
+    "stableFactorialCombinations": 144,
+    "pumpHoldout": {
+      "developmentNuisanceGroups": 39,
+      "validationNuisanceGroups": 9,
+      "healthyFlagged": "0/90",
+      "weakLeakFlagged": "90/90",
+      "severeLeakFlagged": "90/90"
+    }
+  },
+  "retiredArtifacts": [
+    "analysis/build-state.ts",
+    "evidence/receipts/analysis-run.json",
+    "evidence/receipts/analysis-receipt.json"
+  ]
+}

@@ -1,0 +1,406 @@
+---
+title: "Hydraulic Troubleshooting: Interpretable Signal Discovery"
+subtitle: "Independent engineering case study"
+date: "2026-10-03"
+format:
+  html:
+    embed-resources: true
+    toc: true
+    code-fold: true
+    number-sections: true
+  typst:
+    toc: true
+    number-sections: true
+    pdf-standard: ua-1
+---
+
+# Executive summary
+
+**Problem class:** 13 — Troubleshooting and causal-signal discovery across IT + OT
+
+**Research question:** Which cycle-level sensor features most reliably separate stable healthy hydraulic component states from degraded cooler, valve, pump, and accumulator states, and can those verified signals support an interpretable troubleshooting sequence without a black-box model?
+
+**Reference domain:** UCI / ZeMA public hydraulic test rig
+
+This clean-room study uses a public experimental hydraulic dataset to examine a continuous-improvement question: can raw process signals be turned into **inspectable troubleshooting evidence** without confusing correlation, model score, and root cause?
+
+The raw archive contains 2,205 repeated 60-second cycles from 17 sensor channels. A deterministic audit reconciled every sensor file to the condition profile. The source flags 1,449 cycles as stable and 756 as potentially not yet static. The stable subset covers all 144 possible combinations of cooler, valve, pump-leakage, and accumulator condition, with 10–19 repeated cycles per combination.
+
+A first analysis using only whole-cycle mean, standard deviation, range, and end-minus-start delta succeeded for cooler degradation but failed the predeclared evidence screen for all other fault families. Rather than lower the criteria, the second pass preserved within-cycle timing using twelve 5-second windows and compared healthy versus severe component states **within matched combinations of the other three component states**.
+
+The replicate verification half reproduced highly specific cooler and valve signatures. The broad pump/accumulator screen showed cross-sensitivity; a later pump-specific analysis then selected a physical-sensor rule on 39 nuisance-condition groups and reproduced it on 9 completely held-out cooler/valve/accumulator groups. That strengthens pump-leak discrimination **within this experiment** but does not establish field diagnostic accuracy. The engineering conclusion remains a **stability-gated, staged troubleshooting hypothesis**, not an autonomous maintenance system.
+
+No production intervention has been implemented. No downtime reduction, maintenance-labor reduction, quality improvement, financial savings, safety benefit, ecological benefit, or sustainment outcome is claimed.
+
+# Public problem evidence
+
+## Reported facts
+
+The UCI Machine Learning Repository describes *Condition monitoring of hydraulic systems* as multivariate time-series data experimentally obtained from a hydraulic test rig. The rig repeats constant 60-second load cycles while measuring pressure, flow, temperature, motor power, vibration, and derived efficiency quantities. Cooler, valve, pump-leakage, and accumulator condition are deliberately varied across severity levels. The source also provides a cycle-wise flag distinguishing stable conditions from cycles where static conditions might not yet have been reached.
+
+Primary source:  
+https://archive.ics.uci.edu/dataset/447/condition+monitoring+of+hydraulic+systems
+
+The dataset documentation cites Helwig, Pignanelli, and Schütze, *Condition Monitoring of a Complex Hydraulic System Using Multivariate Statistics*, IEEE I2MTC 2015, DOI 10.1109/I2MTC.2015.7151267, for the measurement setup and earlier multivariate-condition-monitoring work.
+
+For statistical-process-control framing, NIST describes control charts as tools for distinguishing common-cause from potentially assignable variation relative to an appropriate reference process. This study does not treat that general method description as proof that the public test-rig data form an adequate production SPC baseline.
+
+Method references:
+- https://www.itl.nist.gov/div898/handbook/pmc/section3/pmc31.htm
+- https://itl.nist.gov/div898/handbook/pmc/section1/pmc14.htm
+
+## What is not known publicly
+
+This study does not know:
+- the maintenance economics of a real production installation;
+- actual field false-alarm or missed-fault rates;
+- production sensor-calibration/MSA performance;
+- plant-specific safe-work or diagnostic procedures;
+- realized diagnostic time, downtime, labor, scrap, parts, or energy effects from the proposed workflow;
+- whether the signatures generalize beyond this experimental rig.
+
+Those unknowns are not filled with synthetic business claims.
+
+# Clean-room boundary
+
+Only public data and calculations derived from that public data are used.
+
+No confidential current/former-employer data, screenshots, drawings, machine parameters, schemas, part/customer identifiers, internal URLs, system names, or proprietary artifacts are used or reconstructed.
+
+## Data provenance
+
+The public archive was downloaded from UCI and retained locally under the Git-ignored `data/raw/` path.
+
+Observed source SHA-256:
+
+`24128aad2ee45eea7e6b63ebbd9992cdf25d0483a2cebefbfc13bc69079af1f2`
+
+Derived evidence is created by:
+
+```bash
+python3 projects/hydraulic-troubleshooting-signal/analysis/analyze.py
+```
+
+The analysis uses only the Python standard library. The deterministic script verifies source structure, derives cycle features, creates the discovery/verification split, and writes the statistical evidence files.
+
+# System boundary
+
+Inside the study:
+- 60-second source cycles;
+- 17 public sensor streams;
+- four source-labeled component-condition dimensions;
+- source stable/non-static flag;
+- transparent feature extraction;
+- matched factorial comparisons;
+- discovery/verification repeatability;
+- diagnostic-hypothesis narrowing.
+
+Outside the study:
+- production machinery;
+- control-system actuation;
+- maintenance authorization;
+- employer systems or data;
+- financial realization;
+- field-generalization claims.
+
+# Metrics and hard constraints
+
+## Economic
+
+The eventual operational metrics are:
+- number of candidate component families remaining after a staged diagnostic screen;
+- troubleshooting decision time.
+
+Neither has an operational baseline yet. They are not converted into dollars.
+
+## Worker / human
+
+The proposed workflow will measure:
+- number of signals/checks a person must review;
+- whether the workflow ever forces a diagnosis when evidence is inconclusive.
+
+An explicit inconclusive/escalate state is a design requirement.
+
+## Ecological
+
+The future study will count unnecessary diagnostic interventions or test cycles as a resource-use proxy. No material, energy, or emissions reduction has been observed.
+
+## Hard constraints
+
+The project may not:
+- actuate equipment or bypass safety interlocks;
+- represent laboratory associations as proven field causation;
+- hide false isolation or inconclusive cases;
+- trade away human review for speed;
+- deliberately create destructive production faults for portfolio evidence;
+- use confidential or reconstructed employer data.
+
+See `ci/hard-constraints.md`.
+
+# Current condition
+
+The source-quality audit found:
+
+| Measure | Observed |
+|---|---:|
+| Total cycles | 2,205 |
+| Stable cycles | 1,449 |
+| Source-flagged non-static cycles | 756 |
+| Stable component-state combinations | 144 / 144 |
+| Stable repetitions per combination | 10–19 |
+| Discovery cycles | 725 |
+| Verification cycles | 724 |
+| Fully healthy + stable reference cycles | 10 |
+| Sensor files with row-width mismatch | 0 |
+
+The 10 fully healthy stable cycles are retained as a descriptive reference. They are **not** used to claim a formal production control-limit baseline because the reference population is thin and independent measurement-system adequacy has not been established.
+
+# CI framing
+
+## Selected methods
+
+The study uses a DMAIC/A3 framing, measurement-validity gates, stratification, matched factorial comparisons, descriptive effect measures, competing hypotheses, FMEA, and proposal-only control planning.
+
+The analysis deliberately does **not** start with predictive AI. The engineering question is whether interpretable signals can survive verification and whether they are component-specific enough to narrow causal hypotheses.
+
+## What each computational method is responsible for
+
+| Question | Method in this case |
+|---|---|
+| Is there a usable signal? | source-state gate, discovery/verification split, matched effect size, direction consistency |
+| Why might it be happening? | stratification by the other three component states and competing hypotheses |
+| What action is best under constraints? | no action selected yet; a staged deterministic workflow is the proposal for independent testing |
+| What happens under a changed system? | not yet evaluated; a future independent validation or transparent simulation is required |
+| How is the gain sustained? | not started; control-plan scaffold defines future checks and escalation |
+| What role does AI play? | research/code assistance only; AI is not evidence and is not the diagnostic method |
+
+# Architecture / process model
+
+::: {.content-visible when-format="html"}
+```{mermaid}
+%%| fig-width: 9
+flowchart LR
+  A[Public UCI archive] --> B[Hash + source audit]
+  B --> C{Settled/static state?}
+  C -->|No| D[Retain evidence / do not isolate]
+  C -->|Yes| E[Transparent cycle features]
+  E --> F[Matched factorial comparisons]
+  F --> G[Discovery half]
+  F --> H[Verification half]
+  G --> I[Candidate signatures]
+  H --> J[Repeatability check]
+  I --> J
+  J --> K{Component-specific?}
+  K -->|Cooler / valve| L[Candidate targeted branch]
+  K -->|Pump / accumulator| M[Multi-signal or physical confirmation]
+  L --> N[Staged troubleshooting proposal]
+  M --> N
+  N --> O[Independent validation — planned]
+```
+:::
+
+::: {.content-visible unless-format="html"}
+**Architecture flow:** Public archive → source audit → settled-state gate → transparent features → matched discovery/verification → specificity check → staged troubleshooting proposal → independent validation.
+:::
+
+# Hypotheses
+
+1. **H1 — Cooler:** degraded cooler condition produces a repeatable, component-specific thermal/cooling signature after other component states are held fixed.
+2. **H2 — Valve:** valve lag produces a repeatable, time-localized pressure/flow signature after matching.
+3. **H3a — Pump broad screen:** pump leakage produces repeatable signals, but broad hydraulic features can remain cross-sensitive.
+4. **H3b — Pump nuisance holdout:** a development-selected physical-sensor rule can discriminate pump-leak labels across unseen cooler/valve/accumulator condition groups inside the source experiment.
+5. **H4 — Accumulator:** reduced accumulator pressure produces repeatable signals, but multi-signal confirmation may be needed.
+6. **H5 — State gate:** source-flagged non-static cycles should not be mixed into stable-state fault interpretation.
+7. **H6 — Workflow:** a stability-gated hierarchical rule can reduce diagnostic ambiguity without forcing a diagnosis.
+
+H1 and H2 have direct support in the replicate-holdout data. H3b is supported by a stronger nuisance-condition holdout inside the same experiment. H3a remains relevant because broad feature specificity and a selected rule answer different questions. H4 remains confounded. H6 is still an untested operational proposal.
+
+# Experiment / model design
+
+## Pass 1 — whole-cycle summaries
+
+The initial features were:
+- cycle mean;
+- sample standard deviation;
+- cycle range;
+- end-minus-start delta.
+
+A frozen first-pass screening rule was used. Cooler passed. Valve, pump, and accumulator did not all satisfy the rule.
+
+That negative result is retained in `evidence/method-iteration.md`; it was not converted into success by post-hoc threshold relaxation.
+
+## Pass 2 — time-localized matched comparison
+
+The second pass added twelve equal-duration 5-second window means per sensor.
+
+For each target component:
+1. select source-flagged stable cycles;
+2. hold the other three component conditions fixed;
+3. compare the healthy and most-degraded target states within each matched stratum;
+4. estimate the shift in units of within-stratum repeatability;
+5. check whether the shift direction is consistent across strata;
+6. rank component specificity relative to the same feature's response to other component changes;
+7. repeat the calculation on untouched verification cycles.
+
+Second-pass engineering gates were frozen before execution:
+- discovery absolute matched effect ≥ 1.00 within-cell SD;
+- verification absolute matched effect ≥ 0.80 within-cell SD;
+- discovery direction consistency ≥ 90%;
+- verification direction consistency ≥ 85%;
+- discovery/verification direction must match.
+
+These are repeatability screens, not p-values and not production diagnostic-accuracy thresholds.
+
+## Pass 3 — pump nuisance-condition holdout
+
+A secondary pump analysis asked a narrower question: can a small physical-sensor rule selected without the holdout discriminate pump-leak labels across cooler, valve, and accumulator combinations not seen during feature/threshold selection?
+
+Stable cycles were grouped by cooler × valve × accumulator condition:
+- 39 development groups / 1,179 cycles;
+- 9 completely held-out nuisance groups / 270 cycles;
+- held-out pump states: 90 healthy, 90 weak leak, 90 severe leak.
+
+The selected development rule used `FS1__end_shift`. On held-out nuisance groups it flagged:
+- 0 / 90 healthy cycles;
+- 90 / 90 weak-leak cycles;
+- 90 / 90 severe-leak cycles.
+
+This is a meaningful **within-experiment condition-group holdout**. It is not external validation, field measurement-system validation, or evidence of reduced production downtime.
+
+# Results
+
+## Verified signal assessment
+
+| Component | Representative verified feature | Verification result | Specificity interpretation |
+|---|---|---|---|
+| Cooler | TS1, early 5-second window mean | direction reproduced across 48 matched strata; descriptive eta² ≈ 0.991 | highly component-specific in this experiment |
+| Valve | PS2, second 5-second window mean | direction reproduced across 36 matched strata; descriptive eta² ≈ 0.983 | strongly component-specific |
+| Pump | Broad screen: FS1 third-window mean; secondary rule: FS1 end-shift | broad matched signal repeats; secondary rule flags 0/90 healthy and 180/180 leak cycles across 9 held-out nuisance groups | strong within-experiment pump discrimination after rule selection; external field isolation still unverified |
+| Accumulator | PS3, second 5-second window mean | direction reproduced across 36 matched strata; descriptive eta² ≈ 0.082 | repeatable but cross-sensitive; not clean isolation |
+
+Several accumulator flow features showed large standardized changes but only about 56–58% direction consistency across matched strata; they therefore failed the frozen consistency gate despite their magnitude.
+
+## Derived finding
+
+The important result is not "four faults classified."
+
+The evidence now separates three levels of confidence:
+- **cooler and valve:** matched replicate-holdout evidence is strong and component-specific inside this experiment;
+- **pump:** the broad screen showed cross-sensitivity, while a separately selected physical-sensor rule performed cleanly across held-out nuisance-condition groups inside the same experiment;
+- **accumulator:** evidence remains cross-sensitive and does not justify clean isolation.
+
+The pump result is stronger than the earlier broad screen but still stops short of field validation. That layered evidence is the basis for the staged proposal.
+
+# Feasible alternatives
+
+Four approaches were evaluated conceptually against the evidence and hard gates:
+
+1. **Single-sensor thresholds for every component** — simple, but fails quality/human gates for pump and accumulator.
+2. **Stability gate + staged deterministic multi-signal workflow** — retained as the next proposal because it exposes uncertainty and allows escalation.
+3. **Black-box classifier first** — deferred; a predictive score would not remove the need to understand cross-sensitivity and state validity.
+4. **Formal SPC limits from the 10 healthy stable cycles** — not admissible as a production baseline with current evidence.
+
+No option has been implemented operationally.
+
+# Economic benefit
+
+**No realized economic benefit is claimed.**
+
+There is no observed:
+- downtime reduction;
+- troubleshooting-time reduction;
+- released capacity;
+- maintenance-labor saving;
+- cost avoidance;
+- hard saving.
+
+The benefits ledger explicitly records the baseline, counterfactual, implementation cost, realized value, and sustainment status as not established/not observed where appropriate.
+
+# Worker impact
+
+No worker outcome has been measured.
+
+The proposed human-factor benefit is narrower: make evidence and uncertainty visible so a maintainer is not forced to convert an ambiguous signal into a diagnosis. That remains a design hypothesis until a workflow is tested with people.
+
+# Ecological impact
+
+No ecological outcome has been measured.
+
+A future mechanism could reduce unnecessary test cycles or component interventions if diagnostic ambiguity decreases, but that is a hypothesis, not a result.
+
+# Sustainment / control
+
+No process change is in control and no sustainment period exists.
+
+The design-only control plan includes:
+- settled-state gate;
+- frozen cooler/valve signal definitions;
+- explicit pump/accumulator ambiguity escalation;
+- sensor-health/MSA gate before deployment;
+- false-isolation review;
+- human authorization boundary.
+
+A benefit cannot be marked realized until an implemented workflow is observed over a defined control horizon.
+
+# AI usage and verification
+
+AI assisted with:
+- public-source research;
+- repository and architecture review;
+- competing-hypothesis generation;
+- implementation scaffolding;
+- documentation and test planning.
+
+AI did not generate the numerical result set. The signal evidence comes from a deterministic standard-library Python program run over the public archive.
+
+Rejected shortcuts included:
+- starting with a black-box classifier;
+- calling any strong single feature a proven root cause;
+- treating 10 fully healthy cycles as a formal production SPC baseline;
+- translating signal strength into downtime savings.
+
+See `AI_USAGE.md`.
+
+# Limitations
+
+- This is an experimental test rig, not a production plant.
+- Both the repeated-cycle verification split and the pump nuisance-condition holdout come from the same source experiment; neither is external validation.
+- Component labels were deliberately varied; this strengthens within-dataset attribution but does not prove general field causality.
+- The analysis focuses on main-effect evidence and matched contrasts; interaction structure is not exhaustively modeled.
+- No production MSA, sensor-health history, field failure prevalence, or maintenance action history is available.
+- No operational intervention or sustainment period exists.
+- No savings or business-impact calculation is defensible yet.
+
+# Reproducibility
+
+Primary artifacts:
+- source register: `sources/source-register.csv`
+- data provenance: `data/README.md`
+- deterministic analysis: `analysis/analyze.py`
+- analysis plan: `analysis/ANALYSIS_PLAN.md`
+- frozen Measure snapshot: `MEASURE_SNAPSHOT.md`
+- data audit: `evidence/data-quality-audit.json`
+- signal ranking: `evidence/component-signal-ranking.csv`
+- replicate-holdout summary: `evidence/verification-summary.csv`
+- pump nuisance-condition holdout: `evidence/pump-leak-rule-summary.json`
+- pump holdout audit: `evidence/pump-leak-measurement-audit.json`
+- method iteration: `evidence/method-iteration.md`
+- experiment register: `ci/experiment-register.csv`
+- benefits ledger: `ci/benefits-ledger.csv`
+- control plan: `ci/control-plan.csv`
+- canonical state: `state.json`
+
+Reproduction commands:
+
+```bash
+python3 projects/hydraulic-troubleshooting-signal/analysis/analyze.py
+npm run project:check -- --project projects/hydraulic-troubleshooting-signal
+npm run verify
+```
+
+# References
+
+1. UCI Machine Learning Repository. *Condition monitoring of hydraulic systems*. https://archive.ics.uci.edu/dataset/447/condition+monitoring+of+hydraulic+systems
+2. Helwig N, Pignanelli E, Schütze A. *Condition Monitoring of a Complex Hydraulic System Using Multivariate Statistics*. IEEE I2MTC 2015. https://doi.org/10.1109/I2MTC.2015.7151267
+3. NIST/SEMATECH. *What are Control Charts?* https://www.itl.nist.gov/div898/handbook/pmc/section3/pmc31.htm
+4. NIST/SEMATECH. *What to do if the process is Out of Control?* https://itl.nist.gov/div898/handbook/pmc/section1/pmc14.htm

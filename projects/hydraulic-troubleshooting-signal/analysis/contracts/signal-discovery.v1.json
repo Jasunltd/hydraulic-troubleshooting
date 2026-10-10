@@ -1,0 +1,31 @@
+{
+  "schema": "hydraulic.signal-discovery-contract/v1",
+  "authority": "none",
+  "claimBoundary": "fixture/public-experiment signal discovery only; no field diagnostic accuracy, equipment actuation authority, operational benefit, or sustainment",
+  "seams": [
+    {
+      "id": "primary-matched-factorial",
+      "implementation": "analysis/analyze.py",
+      "guarantees": [
+        "profile levels and stable factorial design match the frozen public-study contract",
+        "sensor rows have exact expected widths and finite values",
+        "source-flagged non-static cycles cannot enter stable component-effect estimation",
+        "discovery and verification partitions are deterministic and disjoint",
+        "matched effects compare healthy/severe target levels only within identical nuisance-component strata",
+        "receipt binds exact analysis code, source ZIP, and output content"
+      ]
+    },
+    {
+      "id": "secondary-pump-nuisance-holdout",
+      "implementation": "analysis/analyze.ts",
+      "guarantees": [
+        "physical sensors only; virtual CE/CP/SE signals are excluded",
+        "stable cycles only",
+        "complete cooler/valve/accumulator nuisance groups are disjoint between development and validation",
+        "feature and threshold selection use development groups only",
+        "receipt binds exact analysis code and output content",
+        "results remain within-experiment evidence with authority none"
+      ]
+    }
+  ]
+}

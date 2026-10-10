@@ -1,0 +1,37 @@
+{
+  "schema": "ci-research.acquisition-receipt/v1",
+  "source": {
+    "title": "Condition monitoring of hydraulic systems",
+    "publisher": "UCI Machine Learning Repository",
+    "datasetId": 447,
+    "doi": "10.24432/C5CW21",
+    "url": "https://archive.ics.uci.edu/static/public/447/condition%2Bmonitoring%2Bof%2Bhydraulic%2Bsystems.zip",
+    "license": "CC BY 4.0"
+  },
+  "downloadedThisRun": false,
+  "zipPath": "data/raw/hydraulic-systems.zip",
+  "zipBytes": 76601704,
+  "zipSha256": "24128aad2ee45eea7e6b63ebbd9992cdf25d0483a2cebefbfc13bc69079af1f2",
+  "extractedRoot": "data/raw/uci-hydraulic-447",
+  "requiredFiles": [
+    "CE.txt",
+    "CP.txt",
+    "EPS1.txt",
+    "FS1.txt",
+    "FS2.txt",
+    "PS1.txt",
+    "PS2.txt",
+    "PS3.txt",
+    "PS4.txt",
+    "PS5.txt",
+    "PS6.txt",
+    "SE.txt",
+    "TS1.txt",
+    "TS2.txt",
+    "TS3.txt",
+    "TS4.txt",
+    "VS1.txt",
+    "profile.txt"
+  ],
+  "acquiredAtUtc": "2026-10-03T16:22:11.721585+00:00"
+}

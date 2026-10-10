@@ -1,0 +1,3 @@
+benefit_id,metric,baseline,counterfactual,observed,period,benefit_class,calculation,implementation_cost,realized_value,validated_by,sustainment_status,notes
+B-001,Troubleshooting decision time,NOT_MEASURED,NOT_ESTABLISHED,NOT_OBSERVED,N/A,released capacity,NOT_CALCULATED,NOT_ESTIMATED,,none,not started,"No realized benefit claim; requires operational baseline, implemented workflow, counterfactual, and sustainment"
+B-002,Unnecessary diagnostic interventions,NOT_MEASURED,NOT_ESTABLISHED,NOT_OBSERVED,N/A,quality-risk reduction,NOT_CALCULATED,NOT_ESTIMATED,,none,not started,"Potential mechanism only; no quality or ecological benefit has been observed"

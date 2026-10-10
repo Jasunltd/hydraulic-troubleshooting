@@ -1,0 +1,8 @@
+# Local/generated project state
+/.quarto/
+**/*.quarto_ipynb
+/.venv/
+**/__pycache__/
+*.pyc
+/data/raw/
+/data/cache/

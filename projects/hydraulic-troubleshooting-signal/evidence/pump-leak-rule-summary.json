@@ -1,0 +1,222 @@
+{
+  "schema": "ci-research.analysis-summary/v1",
+  "researchQuestion": "Which small, interpretable physical-sensor features separate healthy from internally leaking pump cycles on the public hydraulic test rig, and does a healthy-baseline threshold hold out with low false alarms across varying cooler, valve, and accumulator conditions?",
+  "status": "secondary_pump_leak_holdout_complete",
+  "data": {
+    "source": "UCI Condition monitoring of hydraulic systems, dataset 447",
+    "doi": "10.24432/C5CW21",
+    "license": "CC BY 4.0",
+    "counts": {
+      "all_cycles": 2205,
+      "stable_cycles": 1449,
+      "not_stabilized_cycles": 756,
+      "development_cycles": 1179,
+      "validation_cycles": 270,
+      "nuisance_groups_total": 48,
+      "development_nuisance_groups": 39,
+      "validation_nuisance_groups": 9,
+      "development_by_pump": {
+        "0": 399,
+        "1": 390,
+        "2": 390
+      },
+      "validation_by_pump": {
+        "0": 90,
+        "1": 90,
+        "2": 90
+      }
+    }
+  },
+  "measurementValidity": "Raw-file integrity, row alignment, finite values, and expected sampling counts are verified; calibration/repeatability metadata are not available, so field MSA adequacy is not established.",
+  "featureSelection": {
+    "policy": "Development subset only. Rank monotonic pump-severity medians first, then nuisance-stratum sign consistency, then healthy-vs-leak separation AUC. Threshold is the healthy development 99th/1st percentile according to signal direction. Validation holds out complete cooler/valve/accumulator condition groups unseen during feature or threshold selection.",
+    "topFeature": {
+      "feature": "FS1__end_shift",
+      "sensor": "FS1",
+      "stat": "end_shift",
+      "quantity": "volume_flow",
+      "unit": "l/min",
+      "hz": 10,
+      "direction": "low",
+      "healthy_median": 7.662066666666668,
+      "weak_median": 7.427741666666668,
+      "severe_median": 7.311608333333334,
+      "monotonic_medians": true,
+      "separation_auc": 0.9947754000385579,
+      "cliffs_delta": -0.9895508000771158,
+      "healthy_control_limit": 7.512268333333333,
+      "healthy_control_quantile": 0.01,
+      "dev_healthy_false_alarm_rate": 0.010025062656641603,
+      "dev_weak_detection_rate": 1,
+      "dev_severe_detection_rate": 0.9974358974358974,
+      "nuisance_strata_compared": 39,
+      "nuisance_sign_consistency": 1
+    },
+    "secondDistinctSensorFeature": {
+      "feature": "EPS1__mean",
+      "sensor": "EPS1",
+      "stat": "mean",
+      "quantity": "motor_power",
+      "unit": "W",
+      "hz": 100,
+      "direction": "high",
+      "healthy_median": 2465.176300000048,
+      "weak_median": 2547.4559499999996,
+      "severe_median": 2557.0297000000596,
+      "monotonic_medians": true,
+      "separation_auc": 0.7761197866461025,
+      "cliffs_delta": 0.552239573292205,
+      "healthy_control_limit": 2597.576596666742,
+      "healthy_control_quantile": 0.99,
+      "dev_healthy_false_alarm_rate": 0.010025062656641603,
+      "dev_weak_detection_rate": 0.20512820512820512,
+      "dev_severe_detection_rate": 0.23076923076923078,
+      "nuisance_strata_compared": 39,
+      "nuisance_sign_consistency": 1
+    }
+  },
+  "baseline": {
+    "metric": "FS1__end_shift",
+    "n": 399,
+    "mean": 7.606424728487883,
+    "sample_std": 0.4729521282490754,
+    "median": 7.662066666666668,
+    "p01": 7.512268333333333,
+    "p99": 7.711137000000001,
+    "note": "Healthy, source-labeled stable cycles in the development subset; nuisance component conditions are intentionally varied."
+  },
+  "validationRules": {
+    "single_top_feature": {
+      "healthy_false_alarm": {
+        "n": 90,
+        "flagged": 0,
+        "rate": 0,
+        "wilson95": [
+          0,
+          0.04093562556432678
+        ]
+      },
+      "weak_leak_detection": {
+        "n": 90,
+        "flagged": 90,
+        "rate": 1,
+        "wilson95": [
+          0.9590643744356734,
+          1
+        ]
+      },
+      "severe_leak_detection": {
+        "n": 90,
+        "flagged": 90,
+        "rate": 1,
+        "wilson95": [
+          0.9590643744356734,
+          1
+        ]
+      },
+      "any_leak_detection": {
+        "n": 180,
+        "flagged": 180,
+        "rate": 1,
+        "wilson95": [
+          0.9791045020783868,
+          1
+        ]
+      }
+    },
+    "two_feature_and": {
+      "healthy_false_alarm": {
+        "n": 90,
+        "flagged": 0,
+        "rate": 0,
+        "wilson95": [
+          0,
+          0.04093562556432678
+        ]
+      },
+      "weak_leak_detection": {
+        "n": 90,
+        "flagged": 18,
+        "rate": 0.2,
+        "wilson95": [
+          0.13042401182717056,
+          0.29413736351142555
+        ]
+      },
+      "severe_leak_detection": {
+        "n": 90,
+        "flagged": 21,
+        "rate": 0.23333333333333334,
+        "wilson95": [
+          0.15798194384364636,
+          0.3305170564573279
+        ]
+      },
+      "any_leak_detection": {
+        "n": 180,
+        "flagged": 39,
+        "rate": 0.21666666666666667,
+        "wilson95": [
+          0.16274157861520305,
+          0.28243253687371095
+        ]
+      }
+    },
+    "two_feature_or": {
+      "healthy_false_alarm": {
+        "n": 90,
+        "flagged": 4,
+        "rate": 0.044444444444444446,
+        "wilson95": [
+          0.01741724185270873,
+          0.10876855032812233
+        ]
+      },
+      "weak_leak_detection": {
+        "n": 90,
+        "flagged": 90,
+        "rate": 1,
+        "wilson95": [
+          0.9590643744356734,
+          1
+        ]
+      },
+      "severe_leak_detection": {
+        "n": 90,
+        "flagged": 90,
+        "rate": 1,
+        "wilson95": [
+          0.9590643744356734,
+          1
+        ]
+      },
+      "any_leak_detection": {
+        "n": 180,
+        "flagged": 180,
+        "rate": 1,
+        "wilson95": [
+          0.9791045020783868,
+          1
+        ]
+      }
+    }
+  },
+  "interpretation": {
+    "whatIsObserved": "Sensor traces and component-condition labels are public experimental observations from the source dataset.",
+    "whatIsDerived": "Per-cycle summary features, effect/separation statistics, thresholds, and holdout rates are derived reproducibly by this analysis.",
+    "whatIsNotEstablished": [
+      "field measurement-system adequacy",
+      "time-to-failure or warning lead time",
+      "causal mechanism in production equipment",
+      "implemented downtime reduction",
+      "realized savings",
+      "sustainment"
+    ]
+  },
+  "competingHypotheses": [
+    "H1: pump leakage severity produces a repeatable signal in one or more physical sensor summaries.",
+    "H2: apparent pump signal is primarily explained by cooler, valve, accumulator, or thermal-state variation.",
+    "H3: cycles that had not reached static conditions create the apparent signal.",
+    "H4: a fixed single-feature threshold is too brittle and requires corroborating evidence or condition-aware logic."
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "source_zip": "data/raw/hydraulic-systems.zip",
+  "profile_rows": 2205,
+  "stable_cycles": 1449,
+  "unstable_cycles": 756,
+  "stable_unique_component_combinations": 144,
+  "expected_full_factorial_combinations": 144,
+  "stable_component_design_full_factorial": true,
+  "stable_replicates_per_combination_min": 10,
+  "stable_replicates_per_combination_max": 19,
+  "fully_healthy_stable_reference_cycles": 10,
+  "discovery_cycles": 725,
+  "verification_cycles": 724,
+  "analysis_feature_count": 272,
+  "persisted_cycle_feature_count": 68,
+  "time_windows_per_cycle": 12,
+  "sensor_files": {
+    "PS1": {
+      "rows": 2205,
+      "expected_samples_per_cycle": 6000,
+      "width_mismatches": 0
+    },
+    "PS2": {
+      "rows": 2205,
+      "expected_samples_per_cycle": 6000,
+      "width_mismatches": 0
+    },
+    "PS3": {
+      "rows": 2205,
+      "expected_samples_per_cycle": 6000,
+      "width_mismatches": 0
+    },
+    "PS4": {
+      "rows": 2205,
+      "expected_samples_per_cycle": 6000,
+      "width_mismatches": 0
+    },
+    "PS5": {
+      "rows": 2205,
+      "expected_samples_per_cycle": 6000,
+      "width_mismatches": 0
+    },
+    "PS6": {
+      "rows": 2205,
+      "expected_samples_per_cycle": 6000,
+      "width_mismatches": 0
+    },
+    "EPS1": {
+      "rows": 2205,
+      "expected_samples_per_cycle": 6000,
+      "width_mismatches": 0
+    },
+    "FS1": {
+      "rows": 2205,
+      "expected_samples_per_cycle": 600,
+      "width_mismatches": 0
+    },
+    "FS2": {
+      "rows": 2205,
+      "expected_samples_per_cycle": 600,
+      "width_mismatches": 0
+    },
+    "TS1": {
+      "rows": 2205,
+      "expected_samples_per_cycle": 60,
+      "width_mismatches": 0
+    },
+    "TS2": {
+      "rows": 2205,
+      "expected_samples_per_cycle": 60,
+      "width_mismatches": 0
+    },
+    "TS3": {
+      "rows": 2205,
+      "expected_samples_per_cycle": 60,
+      "width_mismatches": 0
+    },
+    "TS4": {
+      "rows": 2205,
+      "expected_samples_per_cycle": 60,
+      "width_mismatches": 0
+    },
+    "VS1": {
+      "rows": 2205,
+      "expected_samples_per_cycle": 60,
+      "width_mismatches": 0
+    },
+    "CE": {
+      "rows": 2205,
+      "expected_samples_per_cycle": 60,
+      "width_mismatches": 0
+    },
+    "CP": {
+      "rows": 2205,
+      "expected_samples_per_cycle": 60,
+      "width_mismatches": 0
+    },
+    "SE": {
+      "rows": 2205,
+      "expected_samples_per_cycle": 60,
+      "width_mismatches": 0
+    }
+  },
+  "profile_value_counts": {
+    "cooler_pct": {
+      "3": 732,
+      "20": 732,
+      "100": 741
+    },
+    "valve_pct": {
+      "73": 360,
+      "80": 360,
+      "90": 360,
+      "100": 1125
+    },
+    "pump_leakage": {
+      "0": 1221,
+      "1": 492,
+      "2": 492
+    },
+    "accumulator_bar": {
+      "90": 808,
+      "100": 399,
+      "115": 399,
+      "130": 599
+    },
+    "stable_flag": {
+      "0": 1449,
+      "1": 756
+    }
+  }
+}

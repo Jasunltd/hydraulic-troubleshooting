@@ -1,0 +1,6 @@
+metric_id,family,metric,unit,baseline,target,direction,hard_constraint,source_or_formula,notes
+E1,economic,Median diagnostic candidate component families after staged screen,count,,,min,false,future independent troubleshooting validation,"Operational proxy for RCA narrowing; not a dollar value and not yet measured"
+E2,economic,Troubleshooting decision time,minutes,,,min,false,future timed validation,"No field or simulated baseline has been established"
+H1,human,Signals or checks reviewed before escalation,count,,,min,false,future workflow observation,"Cognitive-work proxy; not yet measured"
+H2,human,Forced diagnoses when evidence is inconclusive,count,,0,target,true,future workflow audit,"Target is zero forced diagnoses; feasibility gate for human-safe use"
+S1,ecological,Unnecessary diagnostic intervention or test cycles,count,,,min,false,future observed validation,"Resource-use proxy; no ecological benefit has been measured"

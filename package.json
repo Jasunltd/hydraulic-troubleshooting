@@ -1,0 +1,30 @@
+{
+  "name": "hydraulic-troubleshooting",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Interpretable hydraulic condition-monitoring with explicit stability and diagnostic uncertainty",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "verify": "npm run typecheck && npm run test:node && npm run test:python",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "npm run verify",
+    "test:node": "node --import tsx --test projects/hydraulic-troubleshooting-signal/analysis/test/*.test.ts",
+    "test:python": "python3 -m unittest discover -s projects/hydraulic-troubleshooting-signal/analysis/test -p test_*.py",
+    "analyze": "python3 projects/hydraulic-troubleshooting-signal/analysis/analyze.py",
+    "acquire": "python3 projects/hydraulic-troubleshooting-signal/analysis/acquire.py"
+  },
+  "dependencies": {
+    "archiver": "8.0.0",
+    "effect": "3.22.1",
+    "xstate": "5.33.2"
+  },
+  "devDependencies": {
+    "@types/archiver": "^6.0.3",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  }
+}

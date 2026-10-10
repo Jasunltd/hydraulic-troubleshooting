@@ -1,0 +1,16 @@
+{
+  "schema": "ci-research.analysis-receipt/v1",
+  "authority": "none",
+  "effectReplay": false,
+  "claimBoundary": "Receipt binds the within-experiment pump-screening analysis code and derived outputs only; it does not establish external validation, field diagnostic accuracy, or actuation authority.",
+  "completedAtUtc": "2026-10-05T19:27:01.441Z",
+  "analysisScript": "analysis/analyze.ts",
+  "analysisScriptSha256": "257162b302bfec636b8ead0f41c229a09f00d576207029d3a01cd172de87f518",
+  "acquisitionReceiptSha256": "1d62d841db5d03e95a063c754e524b9bde71936bb9712af199504ca4d9b94c0f",
+  "runtime": "v22.23.2",
+  "outputs": {
+    "evidence/pump-leak-measurement-audit.json": "1a31d6f203478cf13389e02647a3cb939a77871f7e3dc4a8bab892d99ffd5aca",
+    "data/processed/pump-leak-feature-screen.csv": "4aaa5e413bd210fca856f412453983a4531e2fe0e9ffcfdd91605abfd06a4aed",
+    "evidence/pump-leak-rule-summary.json": "fcf4c21bd462f3c1489f7a221408e270ada2243621ac06a5eb33e085dc32ee11"
+  }
+}

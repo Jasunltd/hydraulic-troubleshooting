@@ -1,0 +1,1497 @@
+{
+  "research_question": "Which cycle-level sensor features most reliably separate stable healthy hydraulic component states from degraded cooler, valve, pump, and accumulator states, and can those verified signals support an interpretable troubleshooting sequence without a black-box model?",
+  "analysis_scope": {
+    "public_dataset": "UCI Condition monitoring of hydraulic systems",
+    "stable_cycles_only_for_component_effects": true,
+    "discovery_verification_split": "alternating repeated cycles within each stable 4-component factorial cell",
+    "model_type": "matched factorial signal screening; no machine-learning classifier",
+    "persisted_features": [
+      "cycle mean",
+      "cycle sample standard deviation",
+      "cycle range",
+      "end-minus-start delta"
+    ],
+    "analysis_only_features": "12 equal-duration window means per sensor"
+  },
+  "quality_audit": {
+    "source_zip": "data/raw/hydraulic-systems.zip",
+    "profile_rows": 2205,
+    "stable_cycles": 1449,
+    "unstable_cycles": 756,
+    "stable_unique_component_combinations": 144,
+    "expected_full_factorial_combinations": 144,
+    "stable_component_design_full_factorial": true,
+    "stable_replicates_per_combination_min": 10,
+    "stable_replicates_per_combination_max": 19,
+    "fully_healthy_stable_reference_cycles": 10,
+    "discovery_cycles": 725,
+    "verification_cycles": 724,
+    "analysis_feature_count": 272,
+    "persisted_cycle_feature_count": 68,
+    "time_windows_per_cycle": 12,
+    "sensor_files": {
+      "PS1": {
+        "rows": 2205,
+        "expected_samples_per_cycle": 6000,
+        "width_mismatches": 0
+      },
+      "PS2": {
+        "rows": 2205,
+        "expected_samples_per_cycle": 6000,
+        "width_mismatches": 0
+      },
+      "PS3": {
+        "rows": 2205,
+        "expected_samples_per_cycle": 6000,
+        "width_mismatches": 0
+      },
+      "PS4": {
+        "rows": 2205,
+        "expected_samples_per_cycle": 6000,
+        "width_mismatches": 0
+      },
+      "PS5": {
+        "rows": 2205,
+        "expected_samples_per_cycle": 6000,
+        "width_mismatches": 0
+      },
+      "PS6": {
+        "rows": 2205,
+        "expected_samples_per_cycle": 6000,
+        "width_mismatches": 0
+      },
+      "EPS1": {
+        "rows": 2205,
+        "expected_samples_per_cycle": 6000,
+        "width_mismatches": 0
+      },
+      "FS1": {
+        "rows": 2205,
+        "expected_samples_per_cycle": 600,
+        "width_mismatches": 0
+      },
+      "FS2": {
+        "rows": 2205,
+        "expected_samples_per_cycle": 600,
+        "width_mismatches": 0
+      },
+      "TS1": {
+        "rows": 2205,
+        "expected_samples_per_cycle": 60,
+        "width_mismatches": 0
+      },
+      "TS2": {
+        "rows": 2205,
+        "expected_samples_per_cycle": 60,
+        "width_mismatches": 0
+      },
+      "TS3": {
+        "rows": 2205,
+        "expected_samples_per_cycle": 60,
+        "width_mismatches": 0
+      },
+      "TS4": {
+        "rows": 2205,
+        "expected_samples_per_cycle": 60,
+        "width_mismatches": 0
+      },
+      "VS1": {
+        "rows": 2205,
+        "expected_samples_per_cycle": 60,
+        "width_mismatches": 0
+      },
+      "CE": {
+        "rows": 2205,
+        "expected_samples_per_cycle": 60,
+        "width_mismatches": 0
+      },
+      "CP": {
+        "rows": 2205,
+        "expected_samples_per_cycle": 60,
+        "width_mismatches": 0
+      },
+      "SE": {
+        "rows": 2205,
+        "expected_samples_per_cycle": 60,
+        "width_mismatches": 0
+      }
+    },
+    "profile_value_counts": {
+      "cooler_pct": {
+        "3": 732,
+        "20": 732,
+        "100": 741
+      },
+      "valve_pct": {
+        "73": 360,
+        "80": 360,
+        "90": 360,
+        "100": 1125
+      },
+      "pump_leakage": {
+        "0": 1221,
+        "1": 492,
+        "2": 492
+      },
+      "accumulator_bar": {
+        "90": 808,
+        "100": 399,
+        "115": 399,
+        "130": 599
+      },
+      "stable_flag": {
+        "0": 1449,
+        "1": 756
+      }
+    }
+  },
+  "verification_criteria": {
+    "discovery_abs_matched_effect_sd_min": 1.0,
+    "verification_abs_matched_effect_sd_min": 0.8,
+    "discovery_direction_consistency_min": 0.9,
+    "verification_direction_consistency_min": 0.85,
+    "direction_must_match": true,
+    "note": "Engineering repeatability screen; not a claim of statistical significance or field diagnostic performance."
+  },
+  "top_signals": {
+    "cooler": [
+      {
+        "component": "cooler",
+        "rank": 1,
+        "feature": "TS1_w02_mean",
+        "discovery_matched_effect_sd": 278.3314044621462,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "up",
+        "discovery_eta2": 0.9905648317553252,
+        "discovery_monotonic": true,
+        "specificity_ratio": 102.04054107398248,
+        "verification_matched_effect_sd": 278.5678613812837,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "up",
+        "verification_eta2": 0.9905955162324092,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 48,
+        "matched_strata_verification": 48,
+        "discovery_group_means": {
+          "100": 35.75848163265306,
+          "20": 44.452511666666666,
+          "3": 55.855087499999996
+        },
+        "verification_group_means": {
+          "100": 35.76039836065574,
+          "20": 44.44904416666667,
+          "3": 55.85986333333334
+        }
+      },
+      {
+        "component": "cooler",
+        "rank": 2,
+        "feature": "TS1_w03_mean",
+        "discovery_matched_effect_sd": 270.612155672524,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "up",
+        "discovery_eta2": 0.990497515541252,
+        "discovery_monotonic": true,
+        "specificity_ratio": 118.266316146073,
+        "verification_matched_effect_sd": 269.1621256292526,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "up",
+        "verification_eta2": 0.9904974371029353,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 48,
+        "matched_strata_verification": 48,
+        "discovery_group_means": {
+          "100": 35.77272,
+          "20": 44.385714166666666,
+          "3": 55.71970666666667
+        },
+        "verification_group_means": {
+          "100": 35.773681147540984,
+          "20": 44.38572666666666,
+          "3": 55.72186583333333
+        }
+      },
+      {
+        "component": "cooler",
+        "rank": 3,
+        "feature": "TS1_w01_mean",
+        "discovery_matched_effect_sd": 262.1954116315154,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "up",
+        "discovery_eta2": 0.9904264615961257,
+        "discovery_monotonic": true,
+        "specificity_ratio": 90.06255335866366,
+        "verification_matched_effect_sd": 272.6152717568665,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "up",
+        "verification_eta2": 0.9904507382766451,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 48,
+        "matched_strata_verification": 48,
+        "discovery_group_means": {
+          "100": 35.967360816326526,
+          "20": 44.715603333333334,
+          "3": 56.206035
+        },
+        "verification_group_means": {
+          "100": 35.970477049180325,
+          "20": 44.7113375,
+          "3": 56.211014166666665
+        }
+      },
+      {
+        "component": "cooler",
+        "rank": 4,
+        "feature": "TS1_w12_mean",
+        "discovery_matched_effect_sd": 258.1029466945704,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "up",
+        "discovery_eta2": 0.9906800233624142,
+        "discovery_monotonic": true,
+        "specificity_ratio": 99.83463617669702,
+        "verification_matched_effect_sd": 255.7620455248429,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "up",
+        "verification_eta2": 0.9907478493741947,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 48,
+        "matched_strata_verification": 48,
+        "discovery_group_means": {
+          "100": 36.09961551020408,
+          "20": 44.8539975,
+          "3": 56.326966666666664
+        },
+        "verification_group_means": {
+          "100": 36.10222786885246,
+          "20": 44.85302166666667,
+          "3": 56.33147916666667
+        }
+      },
+      {
+        "component": "cooler",
+        "rank": 5,
+        "feature": "TS1_w04_mean",
+        "discovery_matched_effect_sd": 255.29673809468864,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "up",
+        "discovery_eta2": 0.9904126792119163,
+        "discovery_monotonic": true,
+        "specificity_ratio": 105.49563871860097,
+        "verification_matched_effect_sd": 258.17122848276085,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "up",
+        "verification_eta2": 0.9904396780416198,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 48,
+        "matched_strata_verification": 48,
+        "discovery_group_means": {
+          "100": 35.89595020408163,
+          "20": 44.55931416666667,
+          "3": 55.99126416666666
+        },
+        "verification_group_means": {
+          "100": 35.897608196721315,
+          "20": 44.5576425,
+          "3": 55.997584999999994
+        }
+      },
+      {
+        "component": "cooler",
+        "rank": 6,
+        "feature": "TS1_mean",
+        "discovery_matched_effect_sd": 255.11728591788918,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "up",
+        "discovery_eta2": 0.9906634911930506,
+        "discovery_monotonic": true,
+        "specificity_ratio": 99.67702864017798,
+        "verification_matched_effect_sd": 262.41339686494723,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "up",
+        "verification_eta2": 0.9907093705686257,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 48,
+        "matched_strata_verification": 48,
+        "discovery_group_means": {
+          "100": 36.01440108843537,
+          "20": 44.751850624999996,
+          "3": 56.187026875
+        },
+        "verification_group_means": {
+          "100": 36.016590368852455,
+          "20": 44.75026541666667,
+          "3": 56.19134805555555
+        }
+      },
+      {
+        "component": "cooler",
+        "rank": 7,
+        "feature": "PS6_mean",
+        "discovery_matched_effect_sd": -247.2423157490668,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "down",
+        "discovery_eta2": 0.9935308776273507,
+        "discovery_monotonic": true,
+        "specificity_ratio": 88.32940119406614,
+        "verification_matched_effect_sd": -264.54501450299847,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "down",
+        "verification_eta2": 0.9935995558461047,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 48,
+        "matched_strata_verification": 48,
+        "discovery_group_means": {
+          "100": 9.758925442857144,
+          "20": 9.042871309722221,
+          "3": 8.3984271375
+        },
+        "verification_group_means": {
+          "100": 9.7585029931694,
+          "20": 9.04271767638889,
+          "3": 8.398088286805555
+        }
+      },
+      {
+        "component": "cooler",
+        "rank": 8,
+        "feature": "TS1_w05_mean",
+        "discovery_matched_effect_sd": 245.79877132647,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "up",
+        "discovery_eta2": 0.9905279723714859,
+        "discovery_monotonic": true,
+        "specificity_ratio": 96.42309906375218,
+        "verification_matched_effect_sd": 249.5746858597213,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "up",
+        "verification_eta2": 0.9905374938823985,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 48,
+        "matched_strata_verification": 48,
+        "discovery_group_means": {
+          "100": 35.95512571428572,
+          "20": 44.69842916666666,
+          "3": 56.188442499999994
+        },
+        "verification_group_means": {
+          "100": 35.955966393442615,
+          "20": 44.696365,
+          "3": 56.198255
+        }
+      },
+      {
+        "component": "cooler",
+        "rank": 9,
+        "feature": "PS5_mean",
+        "discovery_matched_effect_sd": -243.9694314117802,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "down",
+        "discovery_eta2": 0.9932476490184692,
+        "discovery_monotonic": true,
+        "specificity_ratio": 94.73521219536991,
+        "verification_matched_effect_sd": -260.0540625380289,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "down",
+        "verification_eta2": 0.9933302855308056,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 48,
+        "matched_strata_verification": 48,
+        "discovery_group_means": {
+          "100": 9.875656512244898,
+          "20": 9.125843811805556,
+          "3": 8.448572278472222
+        },
+        "verification_group_means": {
+          "100": 9.87515555259563,
+          "20": 9.12579175,
+          "3": 8.448279291666667
+        }
+      },
+      {
+        "component": "cooler",
+        "rank": 10,
+        "feature": "TS1_w10_mean",
+        "discovery_matched_effect_sd": 242.13628776127177,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "up",
+        "discovery_eta2": 0.9907003099582401,
+        "discovery_monotonic": true,
+        "specificity_ratio": 102.9380108667047,
+        "verification_matched_effect_sd": 249.41756653506602,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "up",
+        "verification_eta2": 0.990791836936558,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 48,
+        "matched_strata_verification": 48,
+        "discovery_group_means": {
+          "100": 36.16084897959183,
+          "20": 44.92858916666667,
+          "3": 56.35901916666667
+        },
+        "verification_group_means": {
+          "100": 36.164925409836066,
+          "20": 44.92782833333333,
+          "3": 56.362725833333336
+        }
+      }
+    ],
+    "valve": [
+      {
+        "component": "valve",
+        "rank": 1,
+        "feature": "PS2_w02_mean",
+        "discovery_matched_effect_sd": -70.69061541195825,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "down",
+        "discovery_eta2": 0.9833104681125188,
+        "discovery_monotonic": true,
+        "specificity_ratio": 10.009215470167907,
+        "verification_matched_effect_sd": -59.825172639543254,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "down",
+        "verification_eta2": 0.9827773678522974,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 36,
+        "matched_strata_verification": 36,
+        "discovery_group_means": {
+          "100": 16.6761744,
+          "90": 14.977289966666667,
+          "80": 12.451107433333332,
+          "73": 9.299739144444445
+        },
+        "verification_group_means": {
+          "100": 16.660106739130434,
+          "90": 14.971240266666667,
+          "80": 12.43593481111111,
+          "73": 9.300950755555554
+        }
+      },
+      {
+        "component": "valve",
+        "rank": 2,
+        "feature": "PS1_w02_mean",
+        "discovery_matched_effect_sd": 46.38926682253784,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "up",
+        "discovery_eta2": 0.5319959680986394,
+        "discovery_monotonic": true,
+        "specificity_ratio": 1.2887791474339605,
+        "verification_matched_effect_sd": 45.98259352385409,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "up",
+        "verification_eta2": 0.5335058661456649,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 36,
+        "matched_strata_verification": 36,
+        "discovery_group_means": {
+          "100": 187.35930183783785,
+          "90": 187.904334,
+          "80": 188.698576,
+          "73": 189.54747055555555
+        },
+        "verification_group_means": {
+          "100": 187.34760500000002,
+          "90": 187.9098892222222,
+          "80": 188.69467088888888,
+          "73": 189.5459738888889
+        }
+      },
+      {
+        "component": "valve",
+        "rank": 3,
+        "feature": "PS3_w02_mean",
+        "discovery_matched_effect_sd": -26.454423635263606,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "down",
+        "discovery_eta2": 0.8273480703908481,
+        "discovery_monotonic": true,
+        "specificity_ratio": 2.791713341217036,
+        "verification_matched_effect_sd": -24.57979904395258,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "down",
+        "verification_eta2": 0.8213002595353514,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 36,
+        "matched_strata_verification": 36,
+        "discovery_group_means": {
+          "100": 0.6366849513513514,
+          "90": 0.5930346333333334,
+          "80": 0.5147657888888889,
+          "73": 0.3979630111111111
+        },
+        "verification_group_means": {
+          "100": 0.6378803804347826,
+          "90": 0.5929390888888889,
+          "80": 0.5154478666666666,
+          "73": 0.3993878888888889
+        }
+      },
+      {
+        "component": "valve",
+        "rank": 4,
+        "feature": "FS1_w02_mean",
+        "discovery_matched_effect_sd": -13.602590081231513,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "down",
+        "discovery_eta2": 0.9309567702558069,
+        "discovery_monotonic": true,
+        "specificity_ratio": 4.980762634255751,
+        "verification_matched_effect_sd": -13.857176623154842,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "down",
+        "verification_eta2": 0.93038933758129,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 36,
+        "matched_strata_verification": 36,
+        "discovery_group_means": {
+          "100": 1.642436,
+          "90": 1.626744,
+          "80": 1.3532227777777777,
+          "73": 0.8134004444444445
+        },
+        "verification_group_means": {
+          "100": 1.6469964130434784,
+          "90": 1.6234604444444443,
+          "80": 1.351817888888889,
+          "73": 0.8266596666666667
+        }
+      },
+      {
+        "component": "valve",
+        "rank": 5,
+        "feature": "SE_w02_mean",
+        "discovery_matched_effect_sd": -12.51688657934182,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "down",
+        "discovery_eta2": 0.9199781937568481,
+        "discovery_monotonic": true,
+        "specificity_ratio": 4.704108033061944,
+        "verification_matched_effect_sd": -12.73775176526728,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "down",
+        "verification_eta2": 0.9196621548423165,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 36,
+        "matched_strata_verification": 36,
+        "discovery_group_means": {
+          "100": 12.925238918918918,
+          "90": 12.822095555555554,
+          "80": 10.645008888888889,
+          "73": 6.34318
+        },
+        "verification_group_means": {
+          "100": 12.968235869565218,
+          "90": 12.795882222222222,
+          "80": 10.631142222222223,
+          "73": 6.45722
+        }
+      },
+      {
+        "component": "valve",
+        "rank": 6,
+        "feature": "FS1_w03_mean",
+        "discovery_matched_effect_sd": 11.528364245921967,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "up",
+        "discovery_eta2": 0.3072992817880818,
+        "discovery_monotonic": true,
+        "specificity_ratio": 0.9703117614050808,
+        "verification_matched_effect_sd": 6.678240114957143,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "up",
+        "verification_eta2": 0.3117552756418051,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 36,
+        "matched_strata_verification": 36,
+        "discovery_group_means": {
+          "100": 7.866427243243242,
+          "90": 7.914566777777778,
+          "80": 8.018464666666667,
+          "73": 8.207380333333333
+        },
+        "verification_group_means": {
+          "100": 7.86670652173913,
+          "90": 7.911578222222222,
+          "80": 8.01806288888889,
+          "73": 8.209286444444444
+        }
+      },
+      {
+        "component": "valve",
+        "rank": 7,
+        "feature": "SE_w03_mean",
+        "discovery_matched_effect_sd": -11.350631615121458,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "down",
+        "discovery_eta2": 0.7065810114986387,
+        "discovery_monotonic": true,
+        "specificity_ratio": 1.6377858436965445,
+        "verification_matched_effect_sd": -11.646675400751468,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "down",
+        "verification_eta2": 0.7052439379573471,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 36,
+        "matched_strata_verification": 36,
+        "discovery_group_means": {
+          "100": 66.30974054054055,
+          "90": 66.20593777777778,
+          "80": 64.06939333333334,
+          "73": 59.87179111111111
+        },
+        "verification_group_means": {
+          "100": 66.357375,
+          "90": 66.19296666666666,
+          "80": 64.06649999999999,
+          "73": 60.00616222222223
+        }
+      },
+      {
+        "component": "valve",
+        "rank": 8,
+        "feature": "EPS1_w03_mean",
+        "discovery_matched_effect_sd": 8.807269069556144,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "up",
+        "discovery_eta2": 0.01402395567294895,
+        "discovery_monotonic": true,
+        "specificity_ratio": 0.23818590379586074,
+        "verification_matched_effect_sd": 7.042032194474036,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "up",
+        "verification_eta2": 0.013397668885811443,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 36,
+        "matched_strata_verification": 36,
+        "discovery_group_means": {
+          "100": 2287.2325816216216,
+          "90": 2287.97044,
+          "80": 2295.4743911111113,
+          "73": 2307.5847911111114
+        },
+        "verification_group_means": {
+          "100": 2286.817097826087,
+          "90": 2288.83586,
+          "80": 2295.4333266666667,
+          "73": 2307.2168844444445
+        }
+      },
+      {
+        "component": "valve",
+        "rank": 9,
+        "feature": "PS3_w03_mean",
+        "discovery_matched_effect_sd": 8.510953314155211,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "up",
+        "discovery_eta2": 0.06546060075874474,
+        "discovery_monotonic": true,
+        "specificity_ratio": 0.3278102246367759,
+        "verification_matched_effect_sd": 5.652406163415016,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "up",
+        "verification_eta2": 0.06905467281371207,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 36,
+        "matched_strata_verification": 36,
+        "discovery_group_means": {
+          "100": 2.1791190054054055,
+          "90": 2.190370644444444,
+          "80": 2.219996788888889,
+          "73": 2.285989877777778
+        },
+        "verification_group_means": {
+          "100": 2.178081836956522,
+          "90": 2.1900615444444442,
+          "80": 2.221590233333333,
+          "73": 2.2876286
+        }
+      },
+      {
+        "component": "valve",
+        "rank": 10,
+        "feature": "PS1_w03_mean",
+        "discovery_matched_effect_sd": 6.770682821757471,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "up",
+        "discovery_eta2": 0.01107520562885537,
+        "discovery_monotonic": false,
+        "specificity_ratio": 0.3849460524604695,
+        "verification_matched_effect_sd": 3.439404984837548,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "up",
+        "verification_eta2": 0.009753400833977762,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 36,
+        "matched_strata_verification": 36,
+        "discovery_group_means": {
+          "100": 144.1500131891892,
+          "90": 144.09988944444444,
+          "80": 144.34218455555555,
+          "73": 144.69828077777777
+        },
+        "verification_group_means": {
+          "100": 144.13213173913044,
+          "90": 144.1605351111111,
+          "80": 144.33925222222223,
+          "73": 144.67924555555555
+        }
+      }
+    ],
+    "pump": [
+      {
+        "component": "pump",
+        "rank": 1,
+        "feature": "FS1_w03_mean",
+        "discovery_matched_effect_sd": -11.88109296874653,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "down",
+        "discovery_eta2": 0.3841966822232221,
+        "discovery_monotonic": true,
+        "specificity_ratio": 1.030596597687251,
+        "verification_matched_effect_sd": -7.665481260966763,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "down",
+        "verification_eta2": 0.3798789477258469,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 48,
+        "matched_strata_verification": 48,
+        "discovery_group_means": {
+          "0": 8.196248979591836,
+          "1": 7.954706,
+          "2": 7.847303
+        },
+        "verification_group_means": {
+          "0": 8.196228852459017,
+          "1": 7.9533115,
+          "2": 7.849193166666667
+        }
+      },
+      {
+        "component": "pump",
+        "rank": 2,
+        "feature": "EPS1_w02_mean",
+        "discovery_matched_effect_sd": 9.610994402519268,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "up",
+        "discovery_eta2": 0.0400336844846356,
+        "discovery_monotonic": true,
+        "specificity_ratio": 0.20116917038900092,
+        "verification_matched_effect_sd": 9.80656252229656,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "up",
+        "verification_eta2": 0.039361158853918374,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 48,
+        "matched_strata_verification": 48,
+        "discovery_group_means": {
+          "0": 2876.297619591837,
+          "1": 2886.1531316666665,
+          "2": 2902.0380999999998
+        },
+        "verification_group_means": {
+          "0": 2876.328026229508,
+          "1": 2886.19592,
+          "2": 2901.8713866666667
+        }
+      },
+      {
+        "component": "pump",
+        "rank": 3,
+        "feature": "PS1_w02_mean",
+        "discovery_matched_effect_sd": -8.45513668449066,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "down",
+        "discovery_eta2": 0.02673784632595803,
+        "discovery_monotonic": true,
+        "specificity_ratio": 0.18226493462023852,
+        "verification_matched_effect_sd": -9.229713545845216,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "down",
+        "verification_eta2": 0.027357178119498546,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 48,
+        "matched_strata_verification": 48,
+        "discovery_group_means": {
+          "0": 188.61488097959182,
+          "1": 188.32280983333334,
+          "2": 188.16841308333332
+        },
+        "verification_group_means": {
+          "0": 188.61633065573773,
+          "1": 188.32231875,
+          "2": 188.16380941666665
+        }
+      },
+      {
+        "component": "pump",
+        "rank": 4,
+        "feature": "EPS1_w04_mean",
+        "discovery_matched_effect_sd": 8.272133291838788,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "up",
+        "discovery_eta2": 0.02590488347211475,
+        "discovery_monotonic": true,
+        "specificity_ratio": 0.2039149895380304,
+        "verification_matched_effect_sd": 7.034031701662291,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "up",
+        "verification_eta2": 0.02598972391602624,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 48,
+        "matched_strata_verification": 48,
+        "discovery_group_means": {
+          "0": 2279.254729795918,
+          "1": 2289.4727416666665,
+          "2": 2304.5954583333337
+        },
+        "verification_group_means": {
+          "0": 2279.0448147540988,
+          "1": 2289.510823333333,
+          "2": 2304.4285033333335
+        }
+      },
+      {
+        "component": "pump",
+        "rank": 5,
+        "feature": "PS3_w03_mean",
+        "discovery_matched_effect_sd": -7.571592115606626,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "down",
+        "discovery_eta2": 0.06664955846538816,
+        "discovery_monotonic": true,
+        "specificity_ratio": 0.29162952969639394,
+        "verification_matched_effect_sd": -5.117826194455607,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "down",
+        "verification_eta2": 0.06552726531622603,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 48,
+        "matched_strata_verification": 48,
+        "discovery_group_means": {
+          "0": 2.2745706448979592,
+          "1": 2.205355916666667,
+          "2": 2.1746921
+        },
+        "verification_group_means": {
+          "0": 2.274699885245902,
+          "1": 2.20555975,
+          "2": 2.176151725
+        }
+      },
+      {
+        "component": "pump",
+        "rank": 6,
+        "feature": "EPS1_w03_mean",
+        "discovery_matched_effect_sd": 7.0924459495306715,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "up",
+        "discovery_eta2": 0.017531879815769185,
+        "discovery_monotonic": true,
+        "specificity_ratio": 0.19180981474174386,
+        "verification_matched_effect_sd": 7.661391480295688,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "up",
+        "verification_eta2": 0.017478751715210034,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 48,
+        "matched_strata_verification": 48,
+        "discovery_group_means": {
+          "0": 2284.912333061224,
+          "1": 2291.9964216666663,
+          "2": 2306.836236666667
+        },
+        "verification_group_means": {
+          "0": 2284.8490360655737,
+          "1": 2292.185485,
+          "2": 2306.725656666667
+        }
+      },
+      {
+        "component": "pump",
+        "rank": 7,
+        "feature": "SE_w03_mean",
+        "discovery_matched_effect_sd": -6.930473638423113,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "down",
+        "discovery_eta2": 0.21905181217125136,
+        "discovery_monotonic": true,
+        "specificity_ratio": 0.6105804393466745,
+        "verification_matched_effect_sd": -7.285744916082127,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "down",
+        "verification_eta2": 0.21616218875640722,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 48,
+        "matched_strata_verification": 48,
+        "discovery_group_means": {
+          "0": 66.01672897959183,
+          "1": 63.82245083333333,
+          "2": 62.50957166666667
+        },
+        "verification_group_means": {
+          "0": 66.03982131147541,
+          "1": 63.7993575,
+          "2": 62.63336666666667
+        }
+      },
+      {
+        "component": "pump",
+        "rank": 8,
+        "feature": "SE_w04_mean",
+        "discovery_matched_effect_sd": -4.509692980776163,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "down",
+        "discovery_eta2": 0.3672610827642363,
+        "discovery_monotonic": true,
+        "specificity_ratio": 1.9490857069987837,
+        "verification_matched_effect_sd": -4.184749481371085,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "down",
+        "verification_eta2": 0.36319490344655,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 48,
+        "matched_strata_verification": 48,
+        "discovery_group_means": {
+          "0": 66.0677118367347,
+          "1": 62.25463916666667,
+          "2": 60.643390833333335
+        },
+        "verification_group_means": {
+          "0": 66.06859508196722,
+          "1": 62.19055,
+          "2": 60.62258
+        }
+      },
+      {
+        "component": "pump",
+        "rank": 9,
+        "feature": "PS3_w04_mean",
+        "discovery_matched_effect_sd": -3.963846347081046,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "down",
+        "discovery_eta2": 0.08443911101704889,
+        "discovery_monotonic": true,
+        "specificity_ratio": 0.3853947355158365,
+        "verification_matched_effect_sd": -3.934954018400674,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "down",
+        "verification_eta2": 0.08288253902051117,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 48,
+        "matched_strata_verification": 48,
+        "discovery_group_means": {
+          "0": 2.095803493877551,
+          "1": 2.0047644916666667,
+          "2": 1.9722916916666666
+        },
+        "verification_group_means": {
+          "0": 2.0951718278688523,
+          "1": 2.0040145750000002,
+          "2": 1.9729005666666666
+        }
+      },
+      {
+        "component": "pump",
+        "rank": 10,
+        "feature": "FS1_w04_mean",
+        "discovery_matched_effect_sd": -3.822392105372639,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "down",
+        "discovery_eta2": 0.24924476765013115,
+        "discovery_monotonic": true,
+        "specificity_ratio": 1.3571746470819408,
+        "verification_matched_effect_sd": -3.5432124194602053,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "down",
+        "verification_eta2": 0.24737937690980324,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 48,
+        "matched_strata_verification": 48,
+        "discovery_group_means": {
+          "0": 7.529915428571428,
+          "1": 7.1482075,
+          "2": 7.017026916666667
+        },
+        "verification_group_means": {
+          "0": 7.529836229508197,
+          "1": 7.14120425,
+          "2": 7.014391
+        }
+      }
+    ],
+    "accumulator": [
+      {
+        "component": "accumulator",
+        "rank": 1,
+        "feature": "PS3_w02_mean",
+        "discovery_matched_effect_sd": -9.476053019014806,
+        "discovery_direction_consistency": 1.0,
+        "discovery_direction": "down",
+        "discovery_eta2": 0.08187628231696492,
+        "discovery_monotonic": true,
+        "specificity_ratio": 0.3582029663418287,
+        "verification_matched_effect_sd": -10.034158339762017,
+        "verification_direction_consistency": 1.0,
+        "verification_direction": "down",
+        "verification_eta2": 0.08235983438973782,
+        "verification_monotonic": true,
+        "same_direction": true,
+        "discovery_threshold_pass": true,
+        "verification_threshold_pass": true,
+        "verified": true,
+        "matched_strata_discovery": 36,
+        "matched_strata_verification": 36,
+        "discovery_group_means": {
+          "130": 0.5760899222222222,
+          "115": 0.5480202,
+          "100": 0.5223078222222222,
+          "90": 0.49983191351351347
+        },
+        "verification_group_means": {
+          "130": 0.5754169,
+          "115": 0.5511974555555555,
+          "100": 0.5221923444444445,
+          "90": 0.4999144347826087
+        }
+      },
+      {
+        "component": "accumulator",
+        "rank": 2,
+        "feature": "FS2_mean",
+        "discovery_matched_effect_sd": -9.866537962007445,
+        "discovery_direction_consistency": 0.5555555555555556,
+        "discovery_direction": "down",
+        "discovery_eta2": 0.002796893061683565,
+        "discovery_monotonic": false,
+        "specificity_ratio": 0.06877212387073972,
+        "verification_matched_effect_sd": -10.39957884625841,
+        "verification_direction_consistency": 0.5555555555555556,
+        "verification_direction": "down",
+        "verification_eta2": 0.0028575620406315577,
+        "verification_monotonic": false,
+        "same_direction": true,
+        "discovery_threshold_pass": false,
+        "verification_threshold_pass": false,
+        "verified": false,
+        "matched_strata_discovery": 36,
+        "matched_strata_verification": 36,
+        "discovery_group_means": {
+          "130": 9.67088011111111,
+          "115": 9.629844981481481,
+          "100": 9.60026787037037,
+          "90": 9.62645745945946
+        },
+        "verification_group_means": {
+          "130": 9.670764018518518,
+          "115": 9.629061074074075,
+          "100": 9.599905796296296,
+          "90": 9.623558360507246
+        }
+      },
+      {
+        "component": "accumulator",
+        "rank": 3,
+        "feature": "FS2_w07_mean",
+        "discovery_matched_effect_sd": -9.22797901131874,
+        "discovery_direction_consistency": 0.5833333333333334,
+        "discovery_direction": "down",
+        "discovery_eta2": 0.0028949021105427633,
+        "discovery_monotonic": false,
+        "specificity_ratio": 0.07221917220102944,
+        "verification_matched_effect_sd": -8.318058438651768,
+        "verification_direction_consistency": 0.5833333333333334,
+        "verification_direction": "down",
+        "verification_eta2": 0.0029576315044346517,
+        "verification_monotonic": false,
+        "same_direction": true,
+        "discovery_threshold_pass": false,
+        "verification_threshold_pass": false,
+        "verified": false,
+        "matched_strata_discovery": 36,
+        "matched_strata_verification": 36,
+        "discovery_group_means": {
+          "130": 9.67481211111111,
+          "115": 9.632565777777778,
+          "100": 9.603356444444445,
+          "90": 9.629206702702703
+        },
+        "verification_group_means": {
+          "130": 9.674415333333332,
+          "115": 9.632112555555555,
+          "100": 9.602551111111111,
+          "90": 9.626744456521738
+        }
+      },
+      {
+        "component": "accumulator",
+        "rank": 4,
+        "feature": "FS2_w12_mean",
+        "discovery_matched_effect_sd": -9.04035804781467,
+        "discovery_direction_consistency": 0.5555555555555556,
+        "discovery_direction": "down",
+        "discovery_eta2": 0.002814681171928043,
+        "discovery_monotonic": false,
+        "specificity_ratio": 0.0670525165152838,
+        "verification_matched_effect_sd": -9.34307299778444,
+        "verification_direction_consistency": 0.5555555555555556,
+        "verification_direction": "down",
+        "verification_eta2": 0.002879019325413884,
+        "verification_monotonic": false,
+        "same_direction": true,
+        "discovery_threshold_pass": false,
+        "verification_threshold_pass": false,
+        "verified": false,
+        "matched_strata_discovery": 36,
+        "matched_strata_verification": 36,
+        "discovery_group_means": {
+          "130": 9.672180555555556,
+          "115": 9.631154222222223,
+          "100": 9.601053555555556,
+          "90": 9.627590594594595
+        },
+        "verification_group_means": {
+          "130": 9.672155111111111,
+          "115": 9.629443,
+          "100": 9.600793222222222,
+          "90": 9.624518913043477
+        }
+      },
+      {
+        "component": "accumulator",
+        "rank": 5,
+        "feature": "FS2_w04_mean",
+        "discovery_matched_effect_sd": -8.995656577533774,
+        "discovery_direction_consistency": 0.5555555555555556,
+        "discovery_direction": "down",
+        "discovery_eta2": 0.0028276921619052415,
+        "discovery_monotonic": false,
+        "specificity_ratio": 0.06786815152650542,
+        "verification_matched_effect_sd": -9.072452519988063,
+        "verification_direction_consistency": 0.5555555555555556,
+        "verification_direction": "down",
+        "verification_eta2": 0.0028620201383399773,
+        "verification_monotonic": false,
+        "same_direction": true,
+        "discovery_threshold_pass": false,
+        "verification_threshold_pass": false,
+        "verified": false,
+        "matched_strata_discovery": 36,
+        "matched_strata_verification": 36,
+        "discovery_group_means": {
+          "130": 9.666719,
+          "115": 9.625526111111112,
+          "100": 9.595696777777778,
+          "90": 9.622028432432433
+        },
+        "verification_group_means": {
+          "130": 9.666464777777778,
+          "115": 9.625544777777778,
+          "100": 9.595573444444446,
+          "90": 9.619047826086957
+        }
+      },
+      {
+        "component": "accumulator",
+        "rank": 6,
+        "feature": "FS2_w11_mean",
+        "discovery_matched_effect_sd": -8.860867433719891,
+        "discovery_direction_consistency": 0.5555555555555556,
+        "discovery_direction": "down",
+        "discovery_eta2": 0.0028110422571843104,
+        "discovery_monotonic": false,
+        "specificity_ratio": 0.06388789308464671,
+        "verification_matched_effect_sd": -9.249533877592343,
+        "verification_direction_consistency": 0.5555555555555556,
+        "verification_direction": "down",
+        "verification_eta2": 0.00285435740030374,
+        "verification_monotonic": false,
+        "same_direction": true,
+        "discovery_threshold_pass": false,
+        "verification_threshold_pass": false,
+        "verified": false,
+        "matched_strata_discovery": 36,
+        "matched_strata_verification": 36,
+        "discovery_group_means": {
+          "130": 9.671265555555555,
+          "115": 9.629758222222222,
+          "100": 9.600216444444445,
+          "90": 9.626631999999999
+        },
+        "verification_group_means": {
+          "130": 9.670785333333333,
+          "115": 9.628461222222223,
+          "100": 9.599662777777779,
+          "90": 9.623547826086957
+        }
+      },
+      {
+        "component": "accumulator",
+        "rank": 7,
+        "feature": "FS2_w10_mean",
+        "discovery_matched_effect_sd": -8.774444224097559,
+        "discovery_direction_consistency": 0.5555555555555556,
+        "discovery_direction": "down",
+        "discovery_eta2": 0.002931281979584402,
+        "discovery_monotonic": false,
+        "specificity_ratio": 0.06825046284762801,
+        "verification_matched_effect_sd": -9.100028636820044,
+        "verification_direction_consistency": 0.5555555555555556,
+        "verification_direction": "down",
+        "verification_eta2": 0.0029413176160981323,
+        "verification_monotonic": false,
+        "same_direction": true,
+        "discovery_threshold_pass": false,
+        "verification_threshold_pass": false,
+        "verified": false,
+        "matched_strata_discovery": 36,
+        "matched_strata_verification": 36,
+        "discovery_group_means": {
+          "130": 9.675288555555555,
+          "115": 9.632681555555555,
+          "100": 9.602638111111112,
+          "90": 9.628940432432433
+        },
+        "verification_group_means": {
+          "130": 9.67481888888889,
+          "115": 9.631096777777778,
+          "100": 9.602579888888888,
+          "90": 9.626235
+        }
+      },
+      {
+        "component": "accumulator",
+        "rank": 8,
+        "feature": "FS2_w08_mean",
+        "discovery_matched_effect_sd": -8.758386143161301,
+        "discovery_direction_consistency": 0.5555555555555556,
+        "discovery_direction": "down",
+        "discovery_eta2": 0.003102351066112358,
+        "discovery_monotonic": false,
+        "specificity_ratio": 0.07046401416863247,
+        "verification_matched_effect_sd": -9.08831011052023,
+        "verification_direction_consistency": 0.5833333333333334,
+        "verification_direction": "down",
+        "verification_eta2": 0.00312663326504915,
+        "verification_monotonic": false,
+        "same_direction": true,
+        "discovery_threshold_pass": false,
+        "verification_threshold_pass": false,
+        "verified": false,
+        "matched_strata_discovery": 36,
+        "matched_strata_verification": 36,
+        "discovery_group_means": {
+          "130": 9.675908,
+          "115": 9.632061666666667,
+          "100": 9.601228666666668,
+          "90": 9.628180216216217
+        },
+        "verification_group_means": {
+          "130": 9.675437222222222,
+          "115": 9.63097988888889,
+          "100": 9.600956555555555,
+          "90": 9.625573695652173
+        }
+      },
+      {
+        "component": "accumulator",
+        "rank": 9,
+        "feature": "FS2_w09_mean",
+        "discovery_matched_effect_sd": -8.72157841263868,
+        "discovery_direction_consistency": 0.5555555555555556,
+        "discovery_direction": "down",
+        "discovery_eta2": 0.0028752098292968557,
+        "discovery_monotonic": false,
+        "specificity_ratio": 0.06568927852611718,
+        "verification_matched_effect_sd": -9.192369339954622,
+        "verification_direction_consistency": 0.5555555555555556,
+        "verification_direction": "down",
+        "verification_eta2": 0.0028105173723020384,
+        "verification_monotonic": false,
+        "same_direction": true,
+        "discovery_threshold_pass": false,
+        "verification_threshold_pass": false,
+        "verified": false,
+        "matched_strata_discovery": 36,
+        "matched_strata_verification": 36,
+        "discovery_group_means": {
+          "130": 9.676404555555555,
+          "115": 9.634194333333333,
+          "100": 9.604229888888888,
+          "90": 9.631397945945945
+        },
+        "verification_group_means": {
+          "130": 9.675377,
+          "115": 9.633468888888888,
+          "100": 9.604608555555556,
+          "90": 9.628079021739131
+        }
+      },
+      {
+        "component": "accumulator",
+        "rank": 10,
+        "feature": "FS2_w05_mean",
+        "discovery_matched_effect_sd": -8.674425242669603,
+        "discovery_direction_consistency": 0.5555555555555556,
+        "discovery_direction": "down",
+        "discovery_eta2": 0.0027288007420001935,
+        "discovery_monotonic": false,
+        "specificity_ratio": 0.06747449251070407,
+        "verification_matched_effect_sd": -8.547004969169118,
+        "verification_direction_consistency": 0.5555555555555556,
+        "verification_direction": "down",
+        "verification_eta2": 0.0028130680861133436,
+        "verification_monotonic": false,
+        "same_direction": true,
+        "discovery_threshold_pass": false,
+        "verification_threshold_pass": false,
+        "verified": false,
+        "matched_strata_discovery": 36,
+        "matched_strata_verification": 36,
+        "discovery_group_means": {
+          "130": 9.670137222222223,
+          "115": 9.629872555555556,
+          "100": 9.600448555555555,
+          "90": 9.627313837837837
+        },
+        "verification_group_means": {
+          "130": 9.670447888888889,
+          "115": 9.629413222222222,
+          "100": 9.600321444444443,
+          "90": 9.62421
+        }
+      }
+    ]
+  },
+  "spc_status": {
+    "formal_control_limits_established": false,
+    "reason": "Only 10 cycles are simultaneously stable and fully healthy across all four components. They are kept as a descriptive reference window; no in-control production baseline is claimed."
+  },
+  "claim_boundaries": [
+    "Observed findings describe this public experimental test rig only.",
+    "The source experiment deliberately varied component condition labels; matched holdout repeatability strengthens signal attribution but does not prove field causation on other equipment.",
+    "No maintenance intervention, downtime reduction, savings, safety improvement, or sustainment outcome was observed.",
+    "Source-flagged non-static cycles are excluded from component-effect estimation.",
+    "The second pass added matched comparisons and time-localized windows because whole-cycle summaries can average away dynamic switching behavior; thresholds were not loosened after the first pass."
+  ]
+}

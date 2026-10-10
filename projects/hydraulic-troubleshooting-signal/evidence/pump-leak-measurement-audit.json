@@ -1,0 +1,194 @@
+{
+  "schema": "ci-research.measurement-audit/v1",
+  "profileFile": "data/raw/uci-hydraulic-447/profile.txt",
+  "profileShape": [
+    2205,
+    5
+  ],
+  "expectedValueSets": {
+    "cooler": [
+      3,
+      20,
+      100
+    ],
+    "valve": [
+      73,
+      80,
+      90,
+      100
+    ],
+    "pump": [
+      0,
+      1,
+      2
+    ],
+    "accumulator": [
+      90,
+      100,
+      115,
+      130
+    ],
+    "stable_flag": [
+      0,
+      1
+    ]
+  },
+  "observedValueSets": {
+    "cooler": [
+      3,
+      20,
+      100
+    ],
+    "valve": [
+      73,
+      80,
+      90,
+      100
+    ],
+    "pump": [
+      0,
+      1,
+      2
+    ],
+    "accumulator": [
+      90,
+      100,
+      115,
+      130
+    ],
+    "stable_flag": [
+      0,
+      1
+    ]
+  },
+  "valueSetsMatchExpected": true,
+  "sensors": {
+    "PS1": {
+      "rows": 2205,
+      "samplesPerCycle": 6000,
+      "finite": true,
+      "file": "data/raw/uci-hydraulic-447/PS1.txt"
+    },
+    "PS2": {
+      "rows": 2205,
+      "samplesPerCycle": 6000,
+      "finite": true,
+      "file": "data/raw/uci-hydraulic-447/PS2.txt"
+    },
+    "PS3": {
+      "rows": 2205,
+      "samplesPerCycle": 6000,
+      "finite": true,
+      "file": "data/raw/uci-hydraulic-447/PS3.txt"
+    },
+    "PS4": {
+      "rows": 2205,
+      "samplesPerCycle": 6000,
+      "finite": true,
+      "file": "data/raw/uci-hydraulic-447/PS4.txt"
+    },
+    "PS5": {
+      "rows": 2205,
+      "samplesPerCycle": 6000,
+      "finite": true,
+      "file": "data/raw/uci-hydraulic-447/PS5.txt"
+    },
+    "PS6": {
+      "rows": 2205,
+      "samplesPerCycle": 6000,
+      "finite": true,
+      "file": "data/raw/uci-hydraulic-447/PS6.txt"
+    },
+    "EPS1": {
+      "rows": 2205,
+      "samplesPerCycle": 6000,
+      "finite": true,
+      "file": "data/raw/uci-hydraulic-447/EPS1.txt"
+    },
+    "FS1": {
+      "rows": 2205,
+      "samplesPerCycle": 600,
+      "finite": true,
+      "file": "data/raw/uci-hydraulic-447/FS1.txt"
+    },
+    "FS2": {
+      "rows": 2205,
+      "samplesPerCycle": 600,
+      "finite": true,
+      "file": "data/raw/uci-hydraulic-447/FS2.txt"
+    },
+    "TS1": {
+      "rows": 2205,
+      "samplesPerCycle": 60,
+      "finite": true,
+      "file": "data/raw/uci-hydraulic-447/TS1.txt"
+    },
+    "TS2": {
+      "rows": 2205,
+      "samplesPerCycle": 60,
+      "finite": true,
+      "file": "data/raw/uci-hydraulic-447/TS2.txt"
+    },
+    "TS3": {
+      "rows": 2205,
+      "samplesPerCycle": 60,
+      "finite": true,
+      "file": "data/raw/uci-hydraulic-447/TS3.txt"
+    },
+    "TS4": {
+      "rows": 2205,
+      "samplesPerCycle": 60,
+      "finite": true,
+      "file": "data/raw/uci-hydraulic-447/TS4.txt"
+    },
+    "VS1": {
+      "rows": 2205,
+      "samplesPerCycle": 60,
+      "finite": true,
+      "file": "data/raw/uci-hydraulic-447/VS1.txt"
+    }
+  },
+  "physicalSensorsUsed": [
+    "EPS1",
+    "FS1",
+    "FS2",
+    "PS1",
+    "PS2",
+    "PS3",
+    "PS4",
+    "PS5",
+    "PS6",
+    "TS1",
+    "TS2",
+    "TS3",
+    "TS4",
+    "VS1"
+  ],
+  "virtualSensorsExcluded": [
+    "CE",
+    "CP",
+    "SE"
+  ],
+  "splitRule": "stable_flag == 0; every fifth sorted cooler|valve|accumulator condition group is held out in full for validation",
+  "counts": {
+    "all_cycles": 2205,
+    "stable_cycles": 1449,
+    "not_stabilized_cycles": 756,
+    "development_cycles": 1179,
+    "validation_cycles": 270,
+    "nuisance_groups_total": 48,
+    "development_nuisance_groups": 39,
+    "validation_nuisance_groups": 9,
+    "development_by_pump": {
+      "0": 399,
+      "1": 390,
+      "2": 390
+    },
+    "validation_by_pump": {
+      "0": 90,
+      "1": 90,
+      "2": 90
+    }
+  },
+  "measurementSystemBoundary": "Raw-file integrity, row alignment, finite values, and expected sampling counts are verified; calibration/repeatability metadata are not available, so field MSA adequacy is not established."
+}

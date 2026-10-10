@@ -1,0 +1,15 @@
+sequenceDiagram
+  participant Source as Public UCI archive
+  participant Audit as Data audit
+  participant Analyze as Deterministic analysis
+  participant Verify as Holdout verification
+  participant Engineer as Engineering decision
+
+  Source->>Audit: raw cycles + component profile
+  Audit->>Audit: verify rows, widths, stable flag
+  Audit->>Analyze: source-flagged stable cycles
+  Analyze->>Analyze: matched factorial feature discovery
+  Analyze->>Verify: frozen candidate definitions
+  Verify->>Engineer: repeatability + cross-sensitivity evidence
+  Engineer->>Engineer: preserve inconclusive state
+  Engineer-->>Source: independent validation is still required

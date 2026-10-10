@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 2,
+  "slug": "hydraulic-troubleshooting-signal",
+  "title": "Hydraulic Troubleshooting: Interpretable Signal Discovery",
+  "companyOrDomain": "UCI / ZeMA public hydraulic test rig",
+  "created": "2026-10-03",
+  "status": "research",
+  "cleanRoom": true,
+  "dataPolicy": "public-or-synthetic-only",
+  "problem": {
+    "id": 13,
+    "slug": "causal-troubleshooting",
+    "title": "Troubleshooting and causal-signal discovery across IT + OT",
+    "question": "How can teams separate signal from noise and identify causal hypotheses faster across fragmented process evidence?",
+    "economic": [
+      "downtime",
+      "scrap",
+      "RCA time",
+      "repeat failures"
+    ],
+    "human": [
+      "firefighting",
+      "blame",
+      "cognitive overload"
+    ],
+    "ecological": [
+      "repeated material/energy loss"
+    ],
+    "ci": [
+      "SPC",
+      "stratification",
+      "Pareto",
+      "RCA",
+      "5 Whys",
+      "MSA",
+      "DOE"
+    ],
+    "solarpunk": [
+      "ecosystem thinking",
+      "relationships over isolated components"
+    ],
+    "worker": [
+      "trust observations",
+      "no-blame reporting",
+      "visible abnormalities"
+    ]
+  },
+  "outputs": {
+    "landing": "dist/index.html",
+    "html": "dist/case-study.html",
+    "pdf": "dist/case-study.pdf",
+    "video": "dist/demo.mp4",
+    "interactive3d": "dist/interactive-3d.html",
+    "researchPack": "dist/research-pack.json",
+    "sourceArchive": "dist/hydraulic-troubleshooting-signal-source.zip"
+  }
+}
